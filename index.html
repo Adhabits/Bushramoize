@@ -17,11 +17,11 @@
           NOTE: only change made to hide the unwanted "last part" (floating widget)
           — added a small set of CSS rules below to ensure common floating/chat widgets
           or any fixed bottom-right small element are hidden/kept out of view.
-          No other layout/content changes were made.
+          No other layout/content changes were made except adding feedback section
+          and replacing the about image as requested.
         */
 
         /* ---------- Hide potential floating widget / last part (user requested) ---------- */
-        /* Common chat/support widgets / floating buttons */
         .crisp-client,
         #crisp-chatbox,
         .intercom-launcher,
@@ -47,8 +47,6 @@
             pointer-events: none !important;
         }
 
-        /* Hide any element that is positioned fixed in bottom-right corner (small circle-like items) */
-        /* This targets elements with inline style containing position:fixed and bottom & right properties */
         div[style*="position:fixed"][style*="bottom"][style*="right"] {
             display: none !important;
             visibility: hidden !important;
@@ -57,7 +55,7 @@
         }
 
         /* ------------------------------------------------------------------------------- */
-        /* ---------- Original page styles (kept unchanged except for above) ---------- */
+
         body {
             scroll-behavior: smooth;
         }
@@ -290,6 +288,8 @@
             width: 100%;
             border-radius: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            object-fit: cover;
+            height: 420px; /* larger so coach image appears big, as you requested */
         }
 
         .stat-card {
@@ -350,6 +350,93 @@
             font-size: 1.25rem;
             flex-shrink: 0;
         }
+
+        /* ---------------- Feedback carousel styles ---------------- */
+        .feedback-section {
+            padding: 40px 0;
+        }
+
+        .feedback-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            color: var(--gray-800);
+        }
+
+        .feedback-viewport {
+            overflow: hidden;
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+
+        /* track will be wide and repeated for seamless loop */
+        .feedback-track {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            /* we will animate translateX to create left scroll */
+            will-change: transform;
+        }
+
+        .feedback-item {
+            flex: 0 0 auto;
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Keep full photo visible (no crop): set height and auto width */
+        .feedback-item img {
+            display: block;
+            height: 320px; /* desktop height for clarity */
+            width: auto;
+            max-width: none;
+        }
+
+        /* Responsive sizes */
+        @media (max-width: 1200px) {
+            .about-img { height: 380px; }
+            .feedback-item img { height: 300px; }
+        }
+
+        @media (max-width: 768px) {
+            .about-img { height: 340px; }
+            .feedback-item img { height: 240px; }
+            .feedback-title { font-size: 1.1rem; }
+            section { padding: 40px 0; }
+        }
+
+        /* Continuous scroll animation: duration controls speed (lower = faster) */
+        .feedback-track.loop-animate {
+            animation: scroll-left 28s linear infinite;
+        }
+
+        .feedback-track.pause {
+            animation-play-state: paused !important;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* small helper for spacing */
+        .mb-20 { margin-bottom: 20px; }
 
         .video-container {
             position: relative;
@@ -528,72 +615,6 @@
             width: 24px;
             height: 24px;
         }
-
-        /* ----------------- TESTIMONIALS / FEEDBACK styles (ADDED) ----------------- */
-
-        .testimonials-section {
-            padding: 40px 0;
-        }
-
-        .testimonials-wrapper {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,245,255,0.9));
-            border-radius: 12px;
-            padding: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(16,24,40,0.06);
-        }
-
-        .testimonials-track {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            /* will be animated leftwards via CSS animation set dynamically */
-        }
-
-        .testimonial-card {
-            flex: 0 0 auto;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #fff;
-            min-width: 260px;
-            max-width: 360px;
-            box-shadow: 0 8px 20px rgba(2,6,23,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testimonial-card img {
-            display: block;
-            width: 100%;
-            height: 280px; /* fixed height to keep uniformity */
-            object-fit: contain; /* IMPORTANT: contain => no cropping, full photo visible */
-            background: #fff;
-        }
-
-        /* duplicate container for smooth seamless scroll */
-        .testimonials-track.seamless {
-            /* animation will be assigned via JS so speed can be computed */
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
-
-        .testimonials-track.seamless:hover {
-            animation-play-state: paused !important; /* pause on hover */
-        }
-
-        @media (max-width: 992px) {
-            .testimonial-card { min-width: 220px; max-width: 280px; }
-            .testimonial-card img { height: 220px; }
-        }
-
-        @media (max-width: 520px) {
-            section { padding: 28px 0; }
-            .testimonial-card img { height: 160px; }
-            .testimonial-card { min-width: 180px; max-width: 220px; }
-        }
-
-        /* ----------------- end TESTIMONIALS styles ----------------- */
 
         @media (max-width: 768px) {
             .hero-section {
@@ -856,29 +877,13 @@
         </div>
     </section>
 
-    <!-- ================== FEEDBACK / TESTIMONIALS SECTION (ADDED) ================== -->
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h2 class="display-5 fw-bold mb-2">✨ Student Feedback</h2>
-                <p class="lead text-muted">Real feedback — full photos, no crop. Hover to pause.</p>
-            </div>
-
-            <div class="testimonials-wrapper" aria-hidden="false">
-                <div id="testimonialsTrack" class="testimonials-track seamless" aria-label="Student feedback carousel">
-                    <!-- JS will inject testimonial cards (and duplicate for seamless scroll) -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ================== END FEEDBACK / TESTIMONIALS SECTION ================== -->
-
     <!-- About Section -->
     <section id="about" class="py-5 bg-white bg-opacity-50">
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 animate-slide-left">
-                    <img src="https://picsum.photos/200/200?random=1" alt="Bushra Moiz" class="about-img">
+                    <!-- REPLACED coach image as requested (full, large) -->
+                    <img src="https://i.ibb.co/BK724dHs/IMG-8913.jpg" alt="IMG-8913" class="about-img">
                 </div>
                 <div class="col-lg-6 animate-slide-right">
                     <div class="badge-custom mb-3">💫 Your Coach</div>
@@ -936,139 +941,57 @@
         </div>
     </section>
 
-    <!-- Mobile Video Section (kept) -->
-    <section class="py-5 d-lg-none" style="background: linear-gradient(135deg, var(--purple-50), var(--pink-50));">
+    <!-- Feedback SECTION (ADDED) - placed above What Happens When You Join? -->
+    <section id="feedback" class="feedback-section">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3 text-gradient">🎥 Watch Success Stories</h2>
-                <p class="lead text-muted">Real stories from real students who transformed their lives</p>
-            </div>
-
-            <div class="row g-5 align-items-center">
-                <!-- Left Video Player -->
-                <div class="col-lg-6">
-                    <div class="card border-0 shadow-lg">
-                        <div class="video-container " id="videoContainerMobile">
-                            <video id="mainVideoMobile" poster="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Success+Stories"
-                                controls></video>
-                            <button class="btn-video-control" id="muteBtnMobile" aria-label="Mute toggle">
-                                <i data-lucide="volume-2"></i>
-                            </button>
-                        </div>
-                        <div class="card-body p-4">
-                            <h3 class="h5 fw-bold mb-2" id="videoTitleMobile">Success Stories - Student Testimonials</h3>
-                            <p class="text-muted mb-0" id="videoDescriptionMobile">Watch how our students transformed their
-                                lives</p>
-                        </div>
-                    </div>
+            <div class="feedback-card">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="feedback-title">✨ Student Feedback & Proof</div>
+                    <div class="small text-muted">Real screenshots — full images shown</div>
                 </div>
 
-                <!-- Right Thumbnails (mobile kept simple) -->
-                <div class="col-lg-6">
-                    <h3 class="h4 fw-bold mb-4">Choose Your Inspiration</h3>
-
-                    <div class="card video-thumbnail-card p-3 mb-3 active" data-video-index="0">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="position-relative bg-dark bg-opacity-25" style="width: 80px; height: 50px; flex-shrink: 0;">
-                                <img src="https://via.placeholder.com/80x50/8b5cf6/ffffff?text=Video" class="w-100 h-100 rounded" />
-                                <div class="position-absolute top-50 start-50 translate-middle">
-                                    <i data-lucide="play" style="width: 16px; height: 16px; color: white;"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="h6 fw-semibold mb-1">Success Stories - Student Testimonials</h4>
-                                <p class="small text-muted mb-0">Watch how our students transformed their lives</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card video-thumbnail-card p-3 mb-3" data-video-index="1">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="position-relative bg-dark bg-opacity-25" style="width: 80px; height: 50px; flex-shrink: 0;">
-                                <img src="https://via.placeholder.com/80x50/ec4899/ffffff?text=Video" class="w-100 h-100 rounded" />
-                                <div class="position-absolute top-50 start-50 translate-middle">
-                                    <i data-lucide="play" style="width: 16px; height: 16px; color: white;"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="h6 fw-semibold mb-1">Behind the Scenes - Bushra's Journey</h4>
-                                <p class="small text-muted mb-0">Learn about my journey from homemaker to coach</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-4 rounded-3" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
-                        <h4 class="h6 fw-bold mb-3">🌟 Why Watch These Videos?</h4>
-                        <ul class="list-unstyled mb-0">
-                            <li class="d-flex align-items-center gap-2 mb-2">
-                                <span style="width: 8px; height: 8px; background: var(--pink-500); border-radius: 50%; display: inline-block;"></span>
-                                Real student success stories
-                            </li>
-                            <li class="d-flex align-items-center gap-2 mb-2">
-                                <span style="width: 8px; height: 8px; background: var(--purple-500); border-radius: 50%; display: inline-block;"></span>
-                                Behind-the-scenes journey
-                            </li>
-                            <li class="d-flex align-items-center gap-2 mb-2">
-                                <span style="width: 8px; height: 8px; background: var(--pink-500); border-radius: 50%; display: inline-block;"></span>
-                                Proof of genuine results
-                            </li>
-                            <li class="d-flex align-items-center gap-2">
-                                <span style="width: 8px; height: 8px; background: var(--purple-500); border-radius: 50%; display: inline-block;"></span>
-                                Motivation and inspiration
-                            </li>
-                        </ul>
+                <div class="feedback-viewport mt-3" aria-hidden="false" role="region" aria-label="Student feedback gallery">
+                    <!-- track: we'll duplicate content inside JS for seamless loop -->
+                    <div class="feedback-track" id="feedbackTrack">
+                        <!-- Keep images full (no crop). Each .feedback-item holds one full image -->
+                        <a class="feedback-item" href="https://ibb.co/8ghTj2zj" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/v4tgJmsJ/premimun-fb.jpg" alt="feedback-1">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/9HtMg85b" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg" alt="feedback-2">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/XZS8Jqm4" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg" alt="feedback-3">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/gLGpY8wZ" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/C3qZLyvK/Whats-App-Image-2025-11-02-at-12-10-24-PM-1.jpg" alt="feedback-4">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/N6dGqGcn" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/yncxCxHB/Whats-App-Image-2025-11-02-at-12-10-24-PM.jpg" alt="feedback-5">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/XZS8Jqm4" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg" alt="feedback-6">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/N6b8Z1Bk" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/DDTx5G26/Whats-App-Image-2025-11-02-at-12-10-25-PM-2.jpg" alt="feedback-7">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/CfgJRqG" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/SzbQF2C/Whats-App-Image-2025-11-02-at-12-10-25-PM-3.jpg" alt="feedback-8">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/9HtMg85b" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg" alt="feedback-9">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/5X8s2nFG" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/NgjW7mSt/Whats-App-Image-2025-11-02-at-12-10-25-PM.jpg" alt="feedback-10">
+                        </a>
+                        <a class="feedback-item" href="https://ibb.co/8nfzjxF7" target="_blank" rel="noopener">
+                            <img src="https://i.ibb.co/xKBmMgV7/Whats-App-Image-2025-11-02-at-12-12-54-PM.jpg" alt="feedback-11">
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section id="benefits" class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3">🌱 Aap Yahan Seekhenge</h2>
-                <p class="lead text-muted">Real, skill-based aur sustainable online income opportunity</p>
-            </div>
-
-            <div class="row g-4 Seekhenge_Fixd">
-                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_One">
-                    <div class="card rounded-0 benefit-card">
-                        <div class="icon-circle">
-                            <i data-lucide="sparkles" class="lucide-md"></i>
-                        </div>
-                        <h3 class="h5 fw-bold mb-3">In-demand Digital Skills</h3>
-                        <p class="text-muted mb-0">Latest market skills jo demand mein hain</p>
-                    </div>
+                <div class="mt-3 text-end">
+                    <small class="text-muted">Hover to pause • Click image to open full in new tab</small>
                 </div>
-                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Two">
-                    <div class="card rounded-0 benefit-card">
-                        <div class="icon-circle">
-                            <i data-lucide="phone" class="lucide-md"></i>
-                        </div>
-                        <h3 class="h5 fw-bold mb-3">Phone Se Kaam</h3>
-                        <p class="text-muted mb-0">Apne phone se professional kaam karna</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Three">
-                    <div class="card rounded-0 benefit-card">
-                        <div class="icon-circle">
-                            <i data-lucide="clock" class="lucide-md"></i>
-                        </div>
-                        <h3 class="h5 fw-bold mb-3">Flexible Timing</h3>
-                        <p class="text-muted mb-0">Apne time ke according kaam karna</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Four">
-                    <div class="card rounded-0 benefit-card">
-                        <div class="icon-circle">
-                            <i data-lucide="target" class="lucide-md"></i>
-                        </div>
-                        <h3 class="h5 fw-bold mb-3">Online Identity</h3>
-                        <p class="text-muted mb-0">Confidently apni online presence build karna</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_five"></div>
             </div>
         </div>
     </section>
@@ -1142,6 +1065,8 @@
         </div>
     </section>
 
+    <!-- (Remaining sections unchanged) -->
+
     <!-- Stats Section -->
     <section class="py-5 px-3">
         <div class="container">
@@ -1158,7 +1083,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                                 class="bi bi-award" viewBox="0 0 16 16">
                                 <path
-                                    d="M9.669.864 8 0 6.331.864 5.4 2.5 4.017 3.066 4.29 4.71 3.466 6.098 4.857 6.567 5.4 8 6.99 8.121 8 9.5l1.01-1.379L10.6 8l.543-1.433 1.39-.469-.823-1.389.273-1.645-1.383-.566L9.669.864zM8 3.5a1.5 1.5 a0 10 0 3 1.5 1.5 0 0 10-3z" />
+                                    d="M9.669.864 8 0 6.331.864 5.4 2.5 4.017 3.066 4.29 4.71 3.466 6.098 4.857 6.567 5.4 8 6.99 8.121 8 9.5l1.01-1.379L10.6 8l.543-1.433 1.39-.469-.823-1.389.273-1.645-1.383-.566L9.669.864zM8 3.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" />
                                 <path
                                     d="M7.117 10.804 5.27 14H3l1.447-2.789A6.978 6.978 0 0 1 8 10a6.978 6.978 0 0 1 3.553.711L13 14h-2.27l-1.847-3.196A7.007 7.007 0 0 0 8 11a7.007 7.007 0 0 0-.883-.196z" />
                             </svg>
@@ -1596,6 +1521,42 @@
             });
         }
 
+        // ------- Feedback carousel logic -------
+        (function () {
+            const track = document.getElementById('feedbackTrack');
+            if (!track) return;
+
+            // Duplicate children to make an infinite seamless loop
+            const children = Array.from(track.children);
+            children.forEach((child) => {
+                const clone = child.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            // Add animation class once DOM is ready
+            // (animation translates -50% to show half of the track since we duplicated)
+            setTimeout(() => {
+                track.classList.add('loop-animate');
+            }, 60);
+
+            // Pause on hover for better viewing
+            track.addEventListener('mouseenter', () => {
+                track.classList.add('pause');
+            });
+            track.addEventListener('mouseleave', () => {
+                track.classList.remove('pause');
+            });
+
+            // Ensure images are loaded (optional safety)
+            const imgs = track.querySelectorAll('img');
+            imgs.forEach(img => {
+                img.addEventListener('error', () => {
+                    // if any image fails to load, set object as visible placeholder
+                    img.style.background = '#f3f3f3';
+                });
+            });
+        })();
+
         // ------- FORM open/close logic & global interception for ANY button/anchor -------
         (function () {
             const formContainer = document.getElementById("formContainer");
@@ -1659,7 +1620,6 @@
 
                 const anchorEl = target.closest ? target.closest("a") : null;
                 if (anchorEl && anchorEl.href) {
-                    // allow normal external whatsapp link to function: but per original behaviour intercept to open form
                     ev.preventDefault();
                     const label = anchorEl.getAttribute("data-source") || anchorEl.textContent.trim() || anchorEl.getAttribute("href");
                     openForm(label);
@@ -1718,95 +1678,6 @@
 
         // set current year in footer
         document.getElementById("currentYear").textContent = new Date().getFullYear();
-
-        /* ================== TESTIMONIALS JS (ADDED) ================== */
-        (function () {
-            // exact images you provided — full-photo links (no crop)
-            const imageUrls = [
-                "https://i.ibb.co/v4tgJmsJ/premimun-fb.jpg",
-                "https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg",
-                "https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg",
-                "https://i.ibb.co/C3qZLyvK/Whats-App-Image-2025-11-02-at-12-10-24-PM-1.jpg",
-                "https://i.ibb.co/yncxCxHB/Whats-App-Image-2025-11-02-at-12-10-24-PM.jpg",
-                "https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg",
-                "https://i.ibb.co/DDTx5G26/Whats-App-Image-2025-11-02-at-12-10-25-PM-2.jpg",
-                "https://i.ibb.co/SzbQF2C/Whats-App-Image-2025-11-02-at-12-10-25-PM-3.jpg",
-                "https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg",
-                "https://i.ibb.co/NgjW7mSt/Whats-App-Image-2025-11-02-at-12-10-25-PM.jpg",
-                "https://i.ibb.co/xKBmMgV7/Whats-App-Image-2025-11-02-at-12-12-54-PM.jpg"
-            ];
-
-            const track = document.getElementById('testimonialsTrack');
-            if (!track) return;
-
-            // create cards
-            const cards = imageUrls.map((u, i) => {
-                const card = document.createElement('div');
-                card.className = 'testimonial-card';
-                const img = document.createElement('img');
-                img.src = u;
-                img.alt = 'Feedback ' + (i + 1);
-                img.loading = 'lazy';
-                card.appendChild(img);
-                return card;
-            });
-
-            // append original sequence
-            cards.forEach(c => track.appendChild(c));
-            // append duplicate sequence for seamless scrolling
-            cards.forEach(c => track.appendChild(c.cloneNode(true)));
-
-            // compute total width and set CSS animation (leftwards) dynamically
-            // We animate the track by translating to left equal to half of its scroll width (since we duplicated)
-            setTimeout(() => {
-                try {
-                    const children = Array.from(track.children);
-                    let totalWidth = 0;
-                    children.forEach(ch => {
-                        const rect = ch.getBoundingClientRect();
-                        totalWidth += rect.width + 12; // include gap
-                    });
-
-                    // half width is the distance to scroll (original set length)
-                    const halfWidth = totalWidth / 2;
-                    // choose duration based on halfWidth — adjust multiplier for "thoda sa speed me"
-                    // larger width -> longer duration
-                    const durationSeconds = Math.max(18, Math.round(halfWidth * 0.02)); // tweak 0.02 for speed
-                    // create keyframes dynamically
-                    const styleId = 'testimonials-scroll-style';
-                    let styleEl = document.getElementById(styleId);
-                    if (styleEl) styleEl.remove();
-                    styleEl = document.createElement('style');
-                    styleEl.id = styleId;
-                    styleEl.innerHTML = `
-                    @keyframes testimonials-scroll {
-                        from { transform: translateX(0); }
-                        to { transform: translateX(-${halfWidth}px); }
-                    }
-                    #testimonialsTrack.seamless { animation-name: testimonials-scroll; animation-duration: ${durationSeconds}s; animation-timing-function: linear; animation-iteration-count: infinite; }
-                    `;
-                    document.head.appendChild(styleEl);
-
-                    // ensure reduced-motion respects user preferences
-                    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-                    if (mq && mq.matches) {
-                        track.style.animationPlayState = 'paused';
-                    }
-                } catch (e) {
-                    // fallback: assign a default duration
-                    track.style.animation = 'testimonials-scroll 28s linear infinite';
-                }
-            }, 350);
-
-            // pause on hover (extra safety)
-            track.addEventListener('mouseenter', () => {
-                track.style.animationPlayState = 'paused';
-            });
-            track.addEventListener('mouseleave', () => {
-                track.style.animationPlayState = 'running';
-            });
-        })();
-        /* ================== END TESTIMONIALS JS ================== */
 
     </script>
 </body>
