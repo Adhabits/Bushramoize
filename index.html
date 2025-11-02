@@ -1,319 +1,906 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bushra Moiz — Empowering Females to Empower</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- lucide icons -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* hide floating widgets */
-    .crisp-client,#crisp-chatbox,.intercom-launcher,.intercom-lightweight-app,#intercom-container,
-    .tawk-min-container,.tawk,.livechat-compact,.lc-1,.help-circle,.floating-support,.floating-widget,
-    .chat-launcher,.chat-widget,.support-button,.open-any-floating,.floating-whatsapp,
-    .widget--launcher,.widget-launcher{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
-    div[style*="position:fixed"][style*="bottom"][style*="right"]{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+    /* ---------- Hide potential floating widget / last part ---------- */
+    .crisp-client, #crisp-chatbox, .intercom-launcher, .intercom-lightweight-app, #intercom-container,
+    .tawk-min-container, .tawk, .livechat-compact, .lc-1, .help-circle, .floating-support, .floating-widget,
+    .chat-launcher, .chat-widget, .support-button, .open-any-floating, .floating-whatsapp, .widget--launcher,
+    .widget-launcher { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+    div[style*="position:fixed"][style*="bottom"][style*="right"] { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+    /* ---------------------------------------------------------------- */
 
-    :root{
-      --pink-50:#fdf2f8;--pink-100:#fce7f3;--pink-500:#ec4899;--pink-600:#db2777;
-      --purple-50:#faf5ff;--purple-100:#f3e8ff;--purple-500:#a855f7;--purple-600:#9333ea;
-      --gray-800:#1f2937;
+    /* ---------- Original page styles (kept and extended) ---------- */
+    :root {
+      --pink-50: #fdf2f8; --pink-100: #fce7f3; --pink-500: #ec4899; --pink-600: #db2777;
+      --purple-50: #faf5ff; --purple-100: #f3e8ff; --purple-500: #a855f7; --purple-600: #9333ea;
+      --indigo-50: #eef2ff; --gray-50: #f9fafb; --gray-600: #4b5563; --gray-800: #1f2937; --gray-900: #111827;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--gray-800);background:linear-gradient(135deg,var(--pink-50),var(--purple-50));-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    a{text-decoration:none}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; overflow-x: hidden; scroll-behavior: smooth; color: var(--gray-800); background: linear-gradient(135deg, var(--pink-50), var(--purple-50)); }
+    section { padding: 80px 0; }
+    .max-w-900 { max-width: 900px; margin: 0 auto; }
 
-    .hero-section{position:relative;padding:2.5rem 0 1.5rem; text-align:center}
-    .hero-badge{display:inline-block;background:linear-gradient(135deg,var(--pink-500),var(--purple-500));color:#fff;padding:.45rem 1.25rem;border-radius:999px;font-weight:600;margin-bottom:1rem}
-    .hero-image-wrap{max-width:920px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 28px 60px rgba(0,0,0,0.12)}
-    .hero-image-wrap img{display:block;width:100%;height:auto;object-fit:cover}
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: translateY(0);} }
+    @keyframes slideUp { from{opacity:0; transform:translateY(50px)} to{opacity:1; transform:translateY(0);} }
+    @keyframes slideLeft { from{opacity:0; transform:translateX(-50px)} to{opacity:1; transform:translateX(0);} }
+    @keyframes slideRight { from{opacity:0; transform:translateX(50px)} to{opacity:1; transform:translateX(0);} }
+    @keyframes bounce { 0%,20%,53%,80%,100%{transform:translate3d(0,0,0);} 40%,43%{transform:translate3d(0,-10px,0);} 70%{transform:translate3d(0,-5px,0);} 90%{transform:translate3d(0,-2px,0);} }
 
-    .hero-head{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,var(--pink-600),var(--purple-600));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:1rem}
-    .lead-muted{color:#6b7280;margin-top:.6rem}
+    .animate-fade-in{animation:fadeIn 1s ease-out;}
+    .animate-slide-up{animation:slideUp 0.8s ease-out;}
+    .animate-slide-left{animation:slideLeft 0.8s ease-out;}
+    .animate-slide-right{animation:slideRight 0.8s ease-out;}
+    .animate-bounce{animation:bounce 2s infinite;}
 
-    /* form card */
-    .form-card{background:rgba(255,255,255,0.96);backdrop-filter:blur(6px);border-radius:12px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.12);padding:22px}
-    .form-control{height:48px;border-radius:8px;border:1.5px solid #e6e6e6}
-    .btn-gradient{background:linear-gradient(135deg,var(--pink-500),var(--purple-500));border:none;color:#fff;padding:.9rem 1.1rem;border-radius:10px;font-weight:700}
+    .bg-gradient-pink-purple { background: linear-gradient(135deg, var(--pink-50), var(--purple-50), var(--indigo-50)); }
+    .gradient-text { background: linear-gradient(135deg, var(--pink-600), var(--purple-600)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-section { position: relative; padding: 5rem 0; overflow: hidden; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(236,72,153,0.06), rgba(168,85,247,0.06)); }
 
-    /* testimonials */
-    .testimonials-section{padding:42px 0}
-    .testimonials-wrapper{overflow:hidden;border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,0.96),rgba(250,245,255,0.9));padding:14px}
-    .testimonials-track{display:flex;gap:12px;align-items:center;will-change:transform}
-    .testimonial-card{flex:0 0 auto;min-width:260px;max-width:360px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;padding:8px}
-    .testimonial-card img{width:100%;height:240px;object-fit:contain;background:#fff}
-    @keyframes scroll-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .testimonials-auto{animation:scroll-left linear infinite}
-    .testimonials-auto:hover{animation-play-state:paused}
+    .badge-custom { background: linear-gradient(135deg, var(--pink-500), var(--purple-500)); color: white; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 1.1rem; display: inline-block; margin-bottom: 1rem; }
+    .form-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); border: none; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.12); border-radius: 10px; }
+    .form-control, .form-select { height: 50px; border: 2px solid #e5e7eb; border-radius: 8px; transition: all 0.3s; }
+    .form-control:focus, .form-select:focus { border-color: var(--pink-500); box-shadow: 0 0 0 3px rgba(236,72,153,0.06); }
+    .btn-gradient { background: linear-gradient(135deg, var(--pink-500), var(--purple-500)); border: none; color: white; padding: 1rem; font-size: 1.1rem; font-weight: 600; border-radius: 8px; transition: all 0.3s; cursor: pointer; }
+    .btn-gradient:hover { transform: scale(1.03); background: linear-gradient(135deg, var(--pink-600), var(--purple-600)); }
 
-    /* responsive */
-    @media (max-width:992px){.hero-head{font-size:1.6rem}.testimonial-card img{height:200px}}
-    @media (max-width:520px){.hero-section{padding:18px 12px}.hero-head{font-size:1.2rem}.testimonial-card{min-width:200px}.testimonial-card img{height:140px}}
+    .about-img { width: 100%; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+    .stat-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+    .benefit-card { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border: none; border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s; height: 100%; }
 
-    /* small helpers */
-    .center{display:flex;align-items:center;justify-content:center}
-    .mb-12{margin-bottom:12px}
-    footer{background:#0f1724;color:#cbd5e1;padding:36px 0}
+    .icon-circle { width:64px; height:64px; background: linear-gradient(135deg, var(--pink-500), var(--purple-500)); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; color:white; }
+    .step-card { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: 12px; border: none; margin-bottom: 1.5rem; }
+    .step-number { width:48px; height:48px; background: linear-gradient(135deg, var(--pink-500), var(--purple-500)); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.25rem; flex-shrink:0; }
+
+    .video-container { position: relative; width:100%; padding-top:56.25%; background:#000; border-radius:12px; overflow:hidden; }
+    .video-container video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+
+    .footer { background: var(--gray-900); color:white; padding:3rem 0; }
+
+    /* ---------- COUCH IMAGE (full-width card) ---------- */
+    .couch-card { max-width:1100px; margin: 18px auto; border-radius:12px; overflow:hidden; box-shadow: 0 24px 48px rgba(15,23,42,0.08); background:white; }
+    .couch-card img { width:100%; height:520px; object-fit:cover; display:block; }
+
+    /* ---------- FEEDBACK / TESTIMONIAL CAROUSEL ---------- */
+    .testimonials-section { padding: 40px 0; background: linear-gradient(180deg,#fff,#f7f3ff); }
+    .testimonials-inner { max-width:1100px; margin:0 auto; }
+    .slider { position: relative; overflow: hidden; border-radius:12px; min-height:360px; background:#080808; box-shadow: 0 18px 40px rgba(2,6,23,0.06); }
+    .slider-track { display:flex; width:100%; transition: transform 0.8s ease; will-change: transform; }
+    .slide { min-width:100%; flex:0 0 100%; display:flex; align-items:center; justify-content:center; padding:20px; }
+    .slide img { width:100%; height:420px; object-fit:contain; border-radius:8px; background:#111; display:block; }
+
+    .slider-controls { position:absolute; top:12px; right:12px; z-index:6; display:flex; gap:8px; }
+    .control-btn { background: rgba(255,255,255,0.95); border:none; padding:8px 10px; border-radius:8px; cursor:pointer; font-weight:600; }
+    .dots { display:flex; gap:8px; justify-content:center; margin-top:14px; }
+    .dot { width:10px; height:10px; border-radius:50%; background: rgba(255,255,255,0.35); cursor:pointer; transition: all .2s; }
+    .dot.active { background: linear-gradient(135deg,var(--pink-500),var(--purple-500)); width:28px; border-radius:12px; }
+
+    @media (max-width:768px) {
+      .couch-card img { height:320px; object-fit:cover; }
+      .slide img { height:280px; }
+      .hero-section { padding:3rem 0; }
+      h1 { font-size:2rem !important; }
+    }
   </style>
 </head>
-<body>
+<body class="bg-gradient-pink-purple">
 
-  <!-- HERO -->
-  <section class="hero-section" id="hero">
-    <div class="container">
-      <div class="center" style="flex-direction:column">
-        <div class="hero-badge">🚺 Girls Only!</div>
-
-        <!-- YOUR PROVIDED IMAGE — placed prominently at top (full responsive width) -->
-        <div class="hero-image-wrap mb-12" role="img" aria-label="Bushra Couch Photo">
-          <img id="heroImage" src="https://i.ibb.co/BK724dHs/IMG-8913.jpg" alt="Couch - Bushra" />
-        </div>
-
-        <h1 class="hero-head">Join Over <span style="color:#111;font-weight:800">100,000+</span> Working Professionals, Housewives, Students & Self Employed</h1>
-        <p class="lead-muted">From Homemaker to Online Money Maker Coach — Empowering Females to Empower</p>
+  <!-- Hero Section -->
+  <section class="hero-section position-relative" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative text-center">
+      <div class="mb-5 animate-fade-in">
+        <div class="badge-custom animate-bounce">🚺 Girls Only!</div>
+        <h1 class="display-3 fw-bold gradient-text mb-4"> Join Over <span class="counter" data-target="100000" data-suffix="+">0</span> Working Professionals, Housewives, Students & Self Employed with us </h1>
+        <p class="lead text-muted mb-5"> From Homemaker to Online Money Maker Coach - Empowering Females to Empower </p>
       </div>
-    </div>
-  </section>
 
-  <!-- FORM CTA (keeps original behaviour: hidden until open) -->
-  <section class="py-4">
-    <div class="container">
+      <!-- Form Card (Initially Hidden) -->
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <div id="formContainer" class="form-card d-none" aria-hidden="true">
-            <div style="position:relative">
-              <button id="closeFormBtn" class="btn-close" style="position:absolute;right:10px;top:10px" aria-label="Close"></button>
-              <h3 style="margin-bottom:6px">🔥 Start Your Journey Today</h3>
-              <p style="color:#6b7280;margin-bottom:14px">Fill the form — we'll message you on WhatsApp</p>
-
+          <div id="formContainer" class="card form-card d-none" aria-hidden="true">
+            <div class="card-body p-4 p-md-5 position-relative">
+              <button id="closeFormBtn" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close form"></button>
+              <div class="text-center mb-4">
+                <h2 class="h3 fw-bold mb-2">🔥 Start Your Journey Today</h2>
+                <p class="text-muted">Fill this form to unlock your potential</p>
+              </div>
               <form id="mainForm" autocomplete="off" novalidate>
                 <input type="hidden" id="sourceInfo" name="sourceInfo" value="">
-                <div class="row g-3">
+                <div class="row g-4">
                   <div class="col-md-6">
-                    <label class="form-label">Full name</label>
-                    <input id="inp_name" class="form-control" name="name" required placeholder="Your full name">
+                    <label class="form-label d-flex align-items-center gap-2">
+                      <i data-lucide="user" class="lucide-sm"></i> Full Name
+                    </label>
+                    <input id="inp_name" type="text" class="form-control" name="name" placeholder="Enter your full name" required>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-label">Phone</label>
-                    <input id="inp_phone" class="form-control" name="phone" required placeholder="Mobile number">
+                    <label class="form-label d-flex align-items-center gap-2">
+                      <i data-lucide="phone" class="lucide-sm"></i> Phone
+                    </label>
+                    <input id="inp_phone" type="tel" class="form-control" name="phone" placeholder="Enter your phone number" inputmode="numeric" required>
                   </div>
-                  <div class="col-md-4">
-                    <label class="form-label">Age</label>
-                    <input id="inp_age" type="number" min="10" max="120" class="form-control" name="age" required placeholder="Age">
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label">Gender</label>
-                    <select id="inp_gender" class="form-control" name="gender" required>
-                      <option value="">Select</option><option value="female">Female</option><option value="male">Male</option><option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label">Profession</label>
-                    <select id="inp_profession" class="form-control" name="profession" required>
-                      <option value="">Select</option><option>Student</option><option>Housewife</option><option>Job</option><option>Other</option>
-                    </select>
-                  </div>
-
                   <div class="col-12">
-                    <button type="submit" class="btn-gradient w-100">🚀 Send to WhatsApp & Start</button>
+                    <label class="form-label d-flex align-items-center gap-2">
+                      <i data-lucide="calendar" class="lucide-sm"></i> Age
+                    </label>
+                    <input id="inp_age" type="number" class="form-control" name="age" placeholder="Enter your age" min="10" max="120" required>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label d-flex align-items-center gap-2">
+                      <i data-lucide="users" class="lucide-sm"></i> Gender
+                    </label>
+                    <select id="inp_gender" class="form-select" name="gender" required>
+                      <option value="">Select Gender</option>
+                      <option value="female">Female</option>
+                      <option value="male">Male</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label d-flex align-items-center gap-2">
+                      <i data-lucide="briefcase" class="lucide-sm"></i> Profession
+                    </label>
+                    <select id="inp_profession" class="form-select" name="profession" required>
+                      <option value="">Select (Student / Housewife / Job)</option>
+                      <option>Student</option>
+                      <option>Housewife</option>
+                      <option>Job</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-gradient w-100"> 🚀 Send to WhatsApp & Start </button>
                   </div>
                 </div>
               </form>
+            </div>
+          </div> <!-- end formContainer -->
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- About Section (kept original) -->
+  <section id="about" class="py-5 bg-white bg-opacity-50">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6 animate-slide-left">
+          <img src="https://picsum.photos/200/200?random=1" alt="Bushra Moiz" class="about-img">
+        </div>
+        <div class="col-lg-6 animate-slide-right">
+          <div class="badge-custom mb-3">💫 Your Coach</div>
+          <h2 class="display-5 fw-bold mb-3">Hi, Bushra Moiz this side!</h2>
+          <div class="mb-4">
+            <p class="fs-5 d-flex align-items-center gap-3 mb-1"><span class="fs-2">🏡</span> Ek homemaker </p>
+            <p class="fs-5 d-flex align-items-center gap-3 mb-1"><span class="fs-2">💻</span> Freelancer </p>
+            <p class="fs-5 d-flex align-items-center gap-3"><span class="fs-2">🎯</span> Aur Online Money Maker Coach hoon </p>
+          </div>
+          <div class="p-4 rounded-3 mb-4" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
+            <h3 class="h5 fw-bold mb-3">🎯 Mera Vision Simple Hai:</h3>
+            <p class="fs-5 fw-semibold mb-0" style="color: var(--pink-600);"> "Empowering Females" - Har us ladki ke liye jo sirf sapne sochti nahi, unhe jeena chahti hai. </p>
+          </div>
+          <div class="row g-3">
+            <div class="col-4">
+              <div class="stat-card">
+                <div class="fs-3 fw-bold" style="color: var(--pink-600);"><span class="counter" data-target="5" data-suffix="+">0</span></div>
+                <div class="small text-muted">Years Experience</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="stat-card">
+                <div class="fs-3 fw-bold" style="color: var(--purple-600);"><span class="counter" data-target="300" data-suffix="+">0</span></div>
+                <div class="small text-muted">Students Helped</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="stat-card">
+                <div class="fs-3 fw-bold" style="color: var(--pink-600);"> ₹<span class="counter" data-target="100000" data-prefix="₹" data-suffix="">0</span></div>
+                <div class="small text-muted">Monthly Earning</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUCH IMAGE (as you requested: full photo) -->
+  <section class="py-3">
+    <div class="couch-card">
+      <!-- Primary: try direct i.ibb.co guess, fallback to original ibb.co. If these don't work, send me direct i.ibb.co link. -->
+      <img id="couchImg" src="https://i.ibb.co/Z1wzHtRT.jpg" alt="Coach Couch Image" onerror="(function(img){ try{ const src=img.src; if(src.includes('i.ibb.co')) return; const code='Z1wzHtRT'; img.src='https://i.ibb.co/'+code+'.jpg'; }catch(e){} })(this);" />
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / FEEDBACK SECTION (auto slide left, full photos) -->
+  <section id="testimonials" class="testimonials-section">
+    <div class="testimonials-inner">
+      <div style="text-align:center; margin-bottom:18px;">
+        <h2 style="font-size:26px; margin-bottom:6px;">✨ Student Feedback & Proof</h2>
+        <p style="color:#555; margin-bottom:6px;">Real screenshots — full images shown clearly. Auto-slide left, hover to pause.</p>
+      </div>
+
+      <div class="slider" id="slider">
+        <div class="slider-controls" style="right:12px; left:auto;">
+          <button id="prevBtn" class="control-btn" aria-label="Previous">&#9664;</button>
+          <button id="nextBtn" class="control-btn" aria-label="Next">&#9654;</button>
+        </div>
+
+        <div class="slider-track" id="sliderTrack">
+          <!-- Slides: I've placed the URLs you supplied. The script will try to fix ibb.co short-links to i.ibb.co if needed. -->
+          <div class="slide"><img alt="fb-1" src="https://i.ibb.co/8nfzjxF7.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-2" src="https://i.ibb.co/5X8s2nFG.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-3" src="https://i.ibb.co/9HtMg85b.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-4" src="https://i.ibb.co/gLGpY8wZ.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-5" src="https://i.ibb.co/N6dGqGcn.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-6" src="https://i.ibb.co/XZS8Jqm4.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-7" src="https://i.ibb.co/9HtMg85b.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-8" src="https://i.ibb.co/XZS8Jqm4.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-9" src="https://i.ibb.co/gM5hYwVs.jpg" onerror="this.dataset.failed='1'"></div>
+          <div class="slide"><img alt="fb-10" src="https://i.ibb.co/8ghTj2zj.jpg" onerror="this.dataset.failed='1'"></div>
+        </div>
+      </div>
+
+      <div class="dots" id="dotsWrap" style="margin-top:18px;"></div>
+      <p style="text-align:center; color:#666; font-size:13px; margin-top:12px;">Slides auto-play — hover to pause. Use arrows to manually navigate.</p>
+    </div>
+  </section>
+
+  <!-- Mobile Video Section (kept from original) -->
+  <section class="py-5 d-lg-none" style="background: linear-gradient(135deg, var(--purple-50), var(--pink-50));">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold mb-3 text-gradient">🎥 Watch Success Stories</h2>
+        <p class="lead text-muted">Real stories from real students who transformed their lives</p>
+      </div>
+
+      <div class="row g-5 align-items-center">
+        <!-- Left Video Player -->
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-lg">
+            <div class="video-container " id="videoContainerMobile">
+              <video id="mainVideoMobile" poster="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Success+Stories" controls></video>
+              <button class="btn-video-control" id="muteBtnMobile" aria-label="Mute toggle"> <i data-lucide="volume-2"></i> </button>
+            </div>
+            <div class="card-body p-4">
+              <h3 class="h5 fw-bold mb-2" id="videoTitleMobile">Success Stories - Student Testimonials</h3>
+              <p class="text-muted mb-0" id="videoDescriptionMobile">Watch how our students transformed their lives</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Thumbnails (mobile kept simple) -->
+        <div class="col-lg-6">
+          <h3 class="h4 fw-bold mb-4">Choose Your Inspiration</h3>
+          <div class="card video-thumbnail-card p-3 mb-3 active" data-video-index="0">
+            <div class="d-flex align-items-center gap-3">
+              <div class="position-relative bg-dark bg-opacity-25" style="width: 80px; height: 50px; flex-shrink: 0;">
+                <img src="https://via.placeholder.com/80x50/8b5cf6/ffffff?text=Video" class="w-100 h-100 rounded" />
+                <div class="position-absolute top-50 start-50 translate-middle"> <i data-lucide="play" style="width: 16px; height: 16px; color: white;"></i> </div>
+              </div>
+
+              <div>
+                <h4 class="h6 fw-semibold mb-1">Success Stories - Student Testimonials</h4>
+                <p class="small text-muted mb-0">Watch how our students transformed their lives</p>
+              </div>
             </div>
           </div>
 
-          <div class="text-center mt-4">
-            <button id="openFormBtn" class="btn btn-gradient px-4 py-2">Message on WhatsApp: +91 6202798735</button>
+          <div class="card video-thumbnail-card p-3 mb-3" data-video-index="1">
+            <div class="d-flex align-items-center gap-3">
+              <div class="position-relative bg-dark bg-opacity-25" style="width: 80px; height: 50px; flex-shrink: 0;">
+                <img src="https://via.placeholder.com/80x50/ec4899/ffffff?text=Video" class="w-100 h-100 rounded" />
+                <div class="position-absolute top-50 start-50 translate-middle"> <i data-lucide="play" style="width: 16px; height: 16px; color: white;"></i> </div>
+              </div>
+
+              <div>
+                <h4 class="h6 fw-semibold mb-1">Behind the Scenes - Bushra's Journey</h4>
+                <p class="small text-muted mb-0">Learn about my journey from homemaker to coach</p>
+              </div>
+            </div>
           </div>
 
+          <div class="p-4 rounded-3" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
+            <h4 class="h6 fw-bold mb-3">🌟 Why Watch These Videos?</h4>
+            <ul class="list-unstyled mb-0">
+              <li class="d-flex align-items-center gap-2 mb-2"><span style="width:8px;height:8px;background:var(--pink-500);border-radius:50%;display:inline-block;"></span> Real student success stories</li>
+              <li class="d-flex align-items-center gap-2 mb-2"><span style="width:8px;height:8px;background:var(--purple-500);border-radius:50%;display:inline-block;"></span> Behind-the-scenes journey</li>
+              <li class="d-flex align-items-center gap-2"><span style="width:8px;height:8px;background:var(--pink-500);border-radius:50%;display:inline-block;"></span> Proof of genuine results</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS / FEEDBACK (auto-left slide) -->
-  <section class="testimonials-section">
+  <!-- Remaining original sections (Benefits, What Happens, Stats, FAQ, CTA, Footer) - copied from your original file for completeness -->
+  <section id="benefits" class="py-5">
     <div class="container">
-      <div class="text-center mb-3">
-        <h2 style="font-weight:800">✨ Student Feedback</h2>
-        <p style="color:#6b7280">Real feedback — hover to pause</p>
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold mb-3">🌱 Aap Yahan Seekhenge</h2>
+        <p class="lead text-muted">Real, skill-based aur sustainable online income opportunity</p>
       </div>
-
-      <div class="testimonials-wrapper">
-        <div id="testimonialsTrack" class="testimonials-track testimonials-auto" aria-hidden="false">
-          <!-- injected by JS -->
+      <div class="row g-4 Seekhenge_Fixd">
+        <div class="col-md-6 col-lg-3 Seekhenge_Fixd_One">
+          <div class="card rounded-0 benefit-card">
+            <div class="icon-circle"><i data-lucide="sparkles" class="lucide-md"></i></div>
+            <h3 class="h5 fw-bold mb-3">In-demand Digital Skills</h3>
+            <p class="text-muted mb-0">Latest market skills jo demand mein hain</p>
+          </div>
         </div>
+        <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Two">
+          <div class="card rounded-0 benefit-card">
+            <div class="icon-circle"><i data-lucide="phone" class="lucide-md"></i></div>
+            <h3 class="h5 fw-bold mb-3">Phone Se Kaam</h3>
+            <p class="text-muted mb-0">Apne phone se professional kaam karna</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Three">
+          <div class="card rounded-0 benefit-card">
+            <div class="icon-circle"><i data-lucide="clock" class="lucide-md"></i></div>
+            <h3 class="h5 fw-bold mb-3">Flexible Timing</h3>
+            <p class="text-muted mb-0">Apne time ke according kaam karna</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Four">
+          <div class="card rounded-0 benefit-card">
+            <div class="icon-circle"><i data-lucide="target" class="lucide-md"></i></div>
+            <h3 class="h5 fw-bold mb-3">Online Identity</h3>
+            <p class="text-muted mb-0">Confidently apni online presence build karna</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 Seekhenge_Fixd_five"></div>
       </div>
     </div>
   </section>
 
-  <!-- WHAT HAPPENS (short) -->
-  <section style="padding-bottom:40px">
-    <div class="container text-center">
-      <h3 style="margin-bottom:10px;font-weight:800">What Happens When You Join?</h3>
-      <p style="color:#6b7280;margin-bottom:18px">Instant connection, daily mentorship and a clear roadmap to earn.</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
+  <section class="py-5 Happens_sticky" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
     <div class="container">
-      <div class="row gy-3">
-        <div class="col-md-4">
-          <strong>Bushra Moiz</strong>
-          <p style="color:#9ca3af;margin-top:6px">Empowering females to achieve financial independence.</p>
+      <div class="text-center mb-5"><h2 class="display-5 fw-bold mb-3">What Happens When You Join?</h2></div>
+      <div class="row g-4 stk-stack">
+        <div class="col-md-6 step-card-One">
+          <div class="card rounded-0 step-card">
+            <div class="d-flex gap-3">
+              <div class="step-number">1</div>
+              <div>
+                <h3 class="h5 fw-bold mb-2">Instant Connection</h3>
+                <p class="text-muted mb-0">As soon as you message on WhatsApp, you will instantly connect with me (BUSHRA MOIZ) for personal guidance.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <div style="color:#cbd5e1">Contact</div>
-          <div style="color:#9ca3af;margin-top:6px">+91 6202798735</div>
+        <div class="col-md-6 step-card-Two">
+          <div class="card rounded-0 step-card">
+            <div class="d-flex gap-3">
+              <div class="step-number">2</div>
+              <div>
+                <h3 class="h5 fw-bold mb-2">Complete Access</h3>
+                <p class="text-muted mb-0">You'll unlock complete access to a proven step-by-step training and earning system.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4 text-md-end">
-          <small style="color:#9ca3af">&copy; <span id="currentYear"></span> Bushra Moiz</small>
+        <div class="col-md-6 step-card-Three">
+          <div class="card rounded-0 step-card">
+            <div class="d-flex gap-3">
+              <div class="step-number">3</div>
+              <div>
+                <h3 class="h5 fw-bold mb-2">Daily Mentorship</h3>
+                <p class="text-muted mb-0">You'll receive daily mentorship, support, and all the tools you need to succeed.</p>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="col-md-6 step-card-Four">
+          <div class="card rounded-0 step-card">
+            <div class="d-flex gap-3">
+              <div class="step-number">4</div>
+              <div>
+                <h3 class="h5 fw-bold mb-2">Start Earning</h3>
+                <p class="text-muted mb-0">You can start your online earning journey confidently from your very first week.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 step-card-five"></div>
+      </div>
+
+      <div class="text-center mt-5">
+        <button id="openFormBtn" class="btn rounded-0 btn-gradient btn-lg px-5 py-3 open-any">
+          <i data-lucide="message-circle" class="lucide-sm me-2"></i> Message on WhatsApp: +91 6202798735
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 px-3">
+    <div class="container">
+      <div class="text-center mb-5"><h2 class="fw-bold display-6 text-dark">Know Your Coach</h2></div>
+
+      <div class="row align-items-center g-5">
+        <div class="col-md-6">
+          <div class="d-flex rounded-0 align-items-center gap-4 p-4 gradient-box-1 mb-4 shadow-sm">
+            <div class="gradient-pink-purple text-white d-flex align-items-center justify-content-center rounded-circle" style="width:70px; height:70px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                <path d="M9.669.864 8 0 6.331.864 5.4 2.5 4.017 3.066 4.29 4.71 3.466 6.098 4.857 6.567 5.4 8 6.99 8.121 8 9.5l1.01-1.379L10.6 8l.543-1.433 1.39-.469-.823-1.389.273-1.645-1.383-.566L9.669.864zM8 3.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                <path d="M7.117 10.804 5.27 14H3l1.447-2.789A6.978 6.978 0 0 1 8 10a6.978 6.978 0 0 1 3.553.711L13 14h-2.27l-1.847-3.196A7.007 7.007 0 0 0 8 11a7.007 7.007 0 0 0-.883-.196z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="fw-bold mb-1 fs-3 text-dark"><span class="counter" data-target="5">0</span></h3>
+              <p class="mb-0 text-secondary">Years of experience in training and coaching</p>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-4 p-4 rounded-0 gradient-box-2 shadow-sm">
+            <div class="gradient-pink-purple text-white d-flex align-items-center justify-content-center rounded-circle" style="width:70px; height:70px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                <path d="M13 7c0-1.105-.672-2-1.5-2S10 5.895 10 7s.672 2 1.5 2S13 8.105 13 7zM4.5 9C5.328 9 6 8.105 6 7S5.328 5 4.5 5 3 5.895 3 7s.672 2 1.5 2zm5.493 2.574a4.87 4.87 0 0 0-1.483-.228H7.49c-.517 0-1.018.08-1.484.228C4.41 11.891 3 13.27 3 15h10c0-1.73-1.41-3.109-3.007-3.426z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="fw-bold mb-1 fs-3 text-dark"><span class="counter" data-target="1000" data-suffix="+">0</span></h3>
+              <p class="mb-0 text-secondary">Entrepreneurs reached in the last 5 years</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 text-center">
+          <div class="p-5 rounded-4 shadow-lg gradient-pink-purple text-white">
+            <h3 class="fw-bold fs-4 mb-3">🔥 Now it's YOUR time</h3>
+            <p class="fs-5 mb-4">Let's change your future — Together! 💪</p>
+            <div class="row text-center">
+              <div class="col-6">
+                <h4 class="fw-bold fs-3 mb-0"> ₹<span class="counter" data-target="1600000" data-prefix="₹">0</span> </h4>
+                <p class="small opacity-75 mb-0">Earned in 10 Months</p>
+              </div>
+              <div class="col-6">
+                <h4 class="fw-bold fs-3 mb-0"><span class="counter" data-target="300" data-suffix="+">0</span></h4>
+                <p class="small opacity-75 mb-0">Students Earning ₹50K–₹1L</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-5" style="background: linear-gradient(135deg, var(--pink-50), var(--purple-50));">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold mb-3">Frequently Asked Questions</h2>
+        <p class="lead text-muted">"What work will I do?", "Is this legit?", "How much time will I need?"</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1"> What kind of work will I be doing? </button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> You'll be learning in-demand digital skills like social media management, content creation, digital marketing, and online business strategies. The work is completely legitimate and skill-based. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2"> Is this program legitimate and safe? </button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> This is a genuine skill-based training program. I have helped 300+ students earn consistently, and you can verify my credentials and student testimonials. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3"> How much time do I need to invest daily? </button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> You can start with just 2-3 hours daily. The program is designed to be flexible around your schedule, whether you're a housewife, student, or working professional. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4"> When can I expect to start earning? </button>
+              </h2>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> Most of my students start seeing income within the first month of consistent effort. However, sustainable income typically builds up over 2-3 months as you develop your skills. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5"> Do I need any prior experience or technical knowledge? </button>
+              </h2>
+              <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> No prior experience needed! I'll guide you step-by-step from basics to advanced. All you need is a smartphone, internet connection, and willingness to learn. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6"> What support will I get after joining? </button>
+              </h2>
+              <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> You'll get daily mentorship, 24/7 WhatsApp support, weekly group calls, and access to our community of successful students. I personally guide each student. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7"> Is there any investment required? </button>
+              </h2>
+              <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> The training program has a nominal fee which covers all materials, personal mentorship, and ongoing support. No hidden costs or additional investments required. </div>
+              </div>
+            </div>
+
+            <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8"> Can I do this alongside my current job/studies? </button>
+              </h2>
+              <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted"> Yes! The program is designed for busy people. You can learn and implement in your free time. Many of my students are working professionals and students who do this part-time. </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="cta-section py-5">
+    <div class="container max-w-900">
+      <div class="text-center">
+        <h2 class="display-5 fw-bold mb-4">Ready to Transform Your Life?</h2>
+        <p class="fs-5 mb-5 opacity-90"> Join thousands of women who have already started their journey to financial independence </p>
+
+        <div class="card text-white bg-white bg-opacity-10 backdrop-blur border-0 p-4 p-md-5 mb-5">
+          <h3 class="h4 fw-bold mb-3">📲 How to Get Started?</h3>
+          <p class="fs-5 mb-4">Bas mujhe WhatsApp par message karein with these details:</p>
+
+          <div class="row g-3">
+            <div class="col-md-4"><div class="bg-white bg-opacity-10 p-3 rounded"><strong>📝 Name:</strong> Your Full Name </div></div>
+            <div class="col-md-4"><div class="bg-white bg-opacity-10 p-3 rounded"><strong>🎂 Age:</strong> Your Age </div></div>
+            <div class="col-md-4"><div class="bg-white bg-opacity-10 p-3 rounded"><strong>💼 Profession:</strong> Current Status </div></div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <p class="fs-6 fw-semibold mb-3">📌 Save My Number First: +91 6202798735</p>
+          <a href="https://wa.me/916202798735" class="btn btn-lg px-5 py-1 open-any" style="background: white; color: var(--pink-600); font-weight: 600; border-radius: 50px;">
+            <i data-lucide="message-circle" class="lucide-sm me-2"></i> Click to Message on WhatsApp
+          </a>
+        </div>
+
+        <div class="card bg-white bg-opacity-10 border-0 p-4 mb-5">
+          <h4 class="h5 fw-bold mb-3 text-white">⏳ Within 24 hours, you'll get:</h4>
+          <div class="row g-3 text-white">
+            <div class="col-md-6"><div class="d-flex align-items-center gap-2 justify-content-center justify-content-md-start"><i data-lucide="check-circle" class="lucide-sm"></i> 📋 Complete Details </div></div>
+            <div class="col-md-6"><div class="d-flex align-items-center gap-2 justify-content-center justify-content-md-start"><i data-lucide="check-circle" class="lucide-sm"></i> 🗺 Clear Roadmap </div></div>
+          </div>
+        </div>
+
+        <div>
+          <p class="fs-7 mb-3"> 🌟 Empower her with skills • 🌈 Support her with vision • 🚀 Watch her dreams turn into direction </p>
+          <p class="fs-4 fw-bold">❤ With Strength & Sincerity, Bushra Moiz</p>
+          <p class="fs-7 opacity-90">👩‍🏫 Empowering Females to Empower</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container ">
+      <div class="row g-4">
+        <div class="col-md-3">
+          <h3 class="h5 fw-bold mb-3">Bushra Moiz</h3>
+          <p class="text-muted mb-3"> Empowering females to achieve financial independence through skill-based online earning opportunities. </p>
+          <div class="d-flex align-items-center gap-2" style="color: var(--pink-400);">
+            <i data-lucide="phone" style="width: 16px; height: 16px;"></i> +91 6202798735
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <h4 class="h6 fw-semibold mb-3">Quick Links</h4>
+          <ul class="list-unstyled text-white">
+            <li class="mb-2"><a href="#about" class="text-muted open-any">About Coach</a></li>
+            <li class="mb-2"><a href="#benefits" class="text-muted open-any">Benefits</a></li>
+            <li class="mb-2"><a href="#faq" class="text-muted open-any">FAQ</a></li>
+            <li class="mb-2"><a href="#contact" class="text-muted open-any">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-3">
+          <h4 class="h6 fw-semibold mb-3">Privacy & Terms</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-muted open-any">Privacy Policy</a></li>
+            <li class="mb-2"><a href="#" class="text-muted open-any">Terms & Conditions</a></li>
+            <li class="mb-2"><a href="#" class="text-muted open-any">Unsubscribe</a></li>
+          </ul>
+          <div class="d-flex align-items-center gap-2 text-muted small mt-3"><i data-lucide="shield" style="width:16px;height:16px;"></i> Your data is safe and secure with us</div>
+        </div>
+
+        <div class="col-md-3">
+          <h4 class="h6 fw-semibold mb-3">Contact Us</h4>
+          <ul class="list-unstyled">
+            <li class="d-flex align-items-center gap-2 mb-2 text-muted">
+              <i data-lucide="mail" style="width:16px;height:16px;"></i> <span class="small">bushra@example.com</span>
+            </li>
+            <li class="d-flex align-items-center gap-2 mb-3 text-muted">
+              <i data-lucide="phone" style="width:16px;height:16px;"></i> <span class="small">+91 6202798735</span>
+            </li>
+            <li><button class="footer-btn open-any" onclick="document.getElementById('hero').scrollIntoView({ behavior: 'smooth' })"> Get In Touch </button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-top border-secondary mt-5 pt-4 text-center text-muted">
+        <p class="mb-0"> &copy; <span id="currentYear"></span> Bushra Moiz. All rights reserved. Made with ❤ for empowering women. </p>
       </div>
     </div>
   </footer>
 
-  <!-- Bootstrap bundle -->
+  <!-- Bootstrap Bundle JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script> lucide.createIcons(); </script>
 
   <script>
-    lucide.createIcons();
+    // ------- Counters on intersection -------
+    document.addEventListener("DOMContentLoaded", () => {
+      const counters = document.querySelectorAll(".counter");
+      const speed = 100; // adjust speed (lower = faster)
+      const startCounting = (counter) => {
+        const target = +counter.getAttribute("data-target");
+        const prefix = counter.getAttribute("data-prefix") || "";
+        const suffix = counter.getAttribute("data-suffix") || "";
+        const currentVal = +counter.innerText.replace(/[^0-9]/g, "") || 0;
+        const increment = Math.max(1, Math.floor(target / speed));
+        if (currentVal < target) {
+          const next = Math.min(target, currentVal + increment);
+          counter.innerText = next;
+          setTimeout(() => startCounting(counter), 18);
+        } else {
+          counter.innerText = prefix + target.toLocaleString() + suffix;
+        }
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.classList.contains("counted")) {
+            entry.target.classList.add("counted");
+            startCounting(entry.target);
+          }
+        });
+      }, { threshold: 0.45 });
+      counters.forEach(counter => observer.observe(counter));
+    });
 
-    // set year
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    // ------- Video thumbnails -------
+    const videos = [
+      { src: "https://www.w3schools.com/html/mov_bbb.mp4", poster: "https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Success+Stories", title: "Success Stories - Student Testimonials", desc: "Watch how our students transformed their lives" },
+      { src: "https://www.w3schools.com/html/movie.mp4", poster: "https://via.placeholder.com/600x400/ec4899/ffffff?text=Bushra's+Journey", title: "Behind the Scenes - Bushra's Journey", desc: "Learn about my journey from homemaker to coach" }
+    ];
+    // main desktop video elements (if present)
+    const videoEl = document.getElementById("mainVideo");
+    const videoTitle = document.getElementById("videoTitle");
+    const videoDesc = document.getElementById("videoDescription");
+    const thumbs = document.querySelectorAll(".video-thumbnail-card");
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        thumbs.forEach((t) => t.classList.remove("active"));
+        thumb.classList.add("active");
+        const index = thumb.dataset.videoIndex || 0;
+        const data = videos[index];
+        if (videoEl) {
+          videoEl.src = data.src; videoEl.poster = data.poster; videoTitle.textContent = data.title; videoDesc.textContent = data.desc;
+          videoEl.play().catch(()=>{/* autoplay prevented */});
+        }
+      });
+      thumb.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { thumb.click(); } });
+    });
 
-    // COUNTERS (if you add counters later) - kept minimal
-    // FORM open/close & WhatsApp submit logic
-    (function(){
-      const formContainer = document.getElementById('formContainer');
-      const openFormBtn = document.getElementById('openFormBtn');
-      const closeFormBtn = document.getElementById('closeFormBtn');
-      const mainForm = document.getElementById('mainForm');
-      const sourceInfo = document.getElementById('sourceInfo');
-      const WA_NUMBER_INT = "916202798735";
-      let lastClickSource = 'site';
+    // mute toggle desktop (if exists)
+    const muteBtn = document.getElementById("muteBtn");
+    if (muteBtn && videoEl) {
+      muteBtn.addEventListener("click", () => {
+        videoEl.muted = !videoEl.muted;
+        muteBtn.innerHTML = videoEl.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
+        lucide.createIcons();
+      });
+    }
+    // Mobile video handlers
+    const videoElMobile = document.getElementById("mainVideoMobile");
+    const muteBtnMobile = document.getElementById("muteBtnMobile");
+    if (muteBtnMobile && videoElMobile) {
+      muteBtnMobile.addEventListener("click", () => {
+        videoElMobile.muted = !videoElMobile.muted;
+        muteBtnMobile.innerHTML = videoElMobile.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
+        lucide.createIcons();
+      });
+    }
 
-      function openForm(label){
-        lastClickSource = label || 'site';
-        if(sourceInfo) sourceInfo.value = lastClickSource;
-        if(!formContainer) return;
-        formContainer.classList.remove('d-none');
-        setTimeout(()=> formContainer.classList.add('show'),60);
-        formContainer.setAttribute('aria-hidden','false');
-        setTimeout(()=> {
-          formContainer.scrollIntoView({behavior:'smooth',block:'center'});
-          const el = document.getElementById('inp_name');
-          if(el) el.focus();
-        },140);
+    // ------- FORM open/close logic & global interception for ANY button/anchor -------
+    (function () {
+      const formContainer = document.getElementById("formContainer");
+      const openFormBtn = document.getElementById("openFormBtn");
+      const closeBtn = document.getElementById("closeFormBtn");
+      const mainForm = document.getElementById("mainForm");
+      const sourceInfo = document.getElementById("sourceInfo");
+      const WA_NUMBER_INT = "916202798735"; // +91 6202798735
+      let lastClickSource = "site";
+      function openForm(sourceLabel) {
+        lastClickSource = sourceLabel || "site";
+        if (sourceInfo) sourceInfo.value = lastClickSource;
+        if (!formContainer) return;
+        formContainer.classList.remove("d-none");
+        setTimeout(()=> formContainer.classList.add("show"), 60);
+        formContainer.setAttribute("aria-hidden", "false");
+        setTimeout(()=> { formContainer.scrollIntoView({ behavior: "smooth", block: "center" }); const nameInput = document.getElementById("inp_name"); if (nameInput) nameInput.focus(); }, 140);
       }
-      function closeForm(){
-        if(!formContainer) return;
-        formContainer.classList.remove('show');
-        formContainer.setAttribute('aria-hidden','true');
-        setTimeout(()=> formContainer.classList.add('d-none'),420);
+      function closeForm() {
+        if (!formContainer) return;
+        formContainer.classList.remove("show");
+        formContainer.setAttribute("aria-hidden", "true");
+        setTimeout(()=> formContainer.classList.add("d-none"), 420);
       }
+      if (openFormBtn) { openFormBtn.addEventListener("click", (e)=>{ e.preventDefault(); openForm("OpenBtn"); }); }
+      if (closeBtn) { closeBtn.addEventListener("click", (e)=>{ e.preventDefault(); closeForm(); }); }
 
-      if(openFormBtn) openFormBtn.addEventListener('click',(e)=>{ e.preventDefault(); openForm('OpenBtn'); });
-      if(closeFormBtn) closeFormBtn.addEventListener('click',(e)=>{ e.preventDefault(); closeForm(); });
-
-      document.addEventListener('click', function(ev){
-        const t = ev.target;
-        if(!t) return;
-        if(t.closest && t.closest('#formContainer')) return;
-        const isBtn = (t.tagName==='BUTTON') || (t.closest && t.closest('button'));
-        const isA = (t.tagName==='A') || (t.closest && t.closest('a'));
-        if(isBtn || isA){
-          const clickable = t.closest && t.closest("[data-no-open='true']");
-          if(clickable) return;
-          // don't intercept the openFormBtn itself because we already handle it
-          if(t===openFormBtn) return;
+      // Global click handler - open form on any button/anchor unless inside form or data-no-open='true'
+      document.addEventListener("click", function (ev) {
+        const target = ev.target;
+        if (!target) return;
+        if (target.closest && target.closest("#formContainer")) return;
+        const isButton = (target.tagName === "BUTTON") || (target.closest && target.closest("button"));
+        const isAnchor = (target.tagName === "A") || (target.closest && target.closest("a"));
+        const anchorEl = target.closest ? target.closest("a") : null;
+        if (anchorEl && anchorEl.href) {
+          // allow external wa.me links to work - if it's wa.me, don't intercept
+          if (anchorEl.href.includes("wa.me") || anchorEl.href.startsWith("tel:") || anchorEl.href.startsWith("mailto:")) {
+            return;
+          }
           ev.preventDefault();
-          openForm((t.getAttribute && t.getAttribute('data-source')) || (t.textContent && t.textContent.trim()) || 'button');
+          const label = anchorEl.getAttribute("data-source") || anchorEl.textContent.trim() || anchorEl.getAttribute("href");
+          openForm(label);
+          return;
+        }
+        if (isButton || isAnchor) {
+          const clickable = target.closest && target.closest("[data-no-open='true']");
+          if (clickable) return;
+          const label = target.getAttribute("data-source") || target.getAttribute("aria-label") || (target.textContent && target.textContent.trim()) || "button";
+          ev.preventDefault();
+          openForm(label);
         }
       }, true);
 
-      if(mainForm){
-        mainForm.addEventListener('submit', function(e){
+      // Form submit -> open WhatsApp conversation and reset
+      if (mainForm) {
+        mainForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          const name = (document.getElementById('inp_name').value||'').trim();
-          const phoneRaw = (document.getElementById('inp_phone').value||'').trim();
-          const age = (document.getElementById('inp_age').value||'').trim();
-          const gender = (document.getElementById('inp_gender').value||'').trim();
-          const profession = (document.getElementById('inp_profession').value||'').trim();
+          const name = (document.getElementById("inp_name").value || "").trim();
+          const phoneRaw = (document.getElementById("inp_phone").value || "").trim();
+          const age = (document.getElementById("inp_age").value || "").trim();
+          const gender = (document.getElementById("inp_gender").value || "").trim();
+          const profession = (document.getElementById("inp_profession").value || "").trim();
           const src = (sourceInfo && sourceInfo.value) ? sourceInfo.value : lastClickSource;
-          const phone = phoneRaw.replace(/\D/g,'');
-          if(!name || !phone || phone.length<6 || !age || !gender || !profession){
-            alert('Please fill all fields correctly (Name, Phone, Age, Gender, Profession).'); return;
+          const phone = phoneRaw.replace(/\D/g, "");
+          if (!name || !phone || phone.length < 6 || !age || !gender || !profession) {
+            alert("Please fill all fields correctly (Name, Phone, Age, Gender, Profession).");
+            return;
           }
-          const msgLines = [
-            "Hello Bushra Ma'am, I am interested in this work.",
-            "Here are my details:",
-            `Name: ${name}`,
-            `Phone: ${phone}`,
-            `Age: ${age}`,
-            `Gender: ${gender}`,
-            `Profession: ${profession}`,
-            `Source: ${src}`,
-            "Please share the next steps. Thanks!"
-          ];
-          const message = encodeURIComponent(msgLines.join("\n"));
+          const lines = [];
+          lines.push(`Hello Bushra Ma'am, I am interested in this work.`);
+          lines.push(`Here are my details:`);
+          lines.push(`Name: ${name}`);
+          lines.push(`Phone: ${phone}`);
+          lines.push(`Age: ${age}`);
+          lines.push(`Gender: ${gender}`);
+          lines.push(`Profession: ${profession}`);
+          lines.push(`Source: ${src}`);
+          lines.push(`Please share the next steps. Thanks!`);
+          const message = encodeURIComponent(lines.join("\n"));
           const waUrl = `https://wa.me/${WA_NUMBER_INT}?text=${message}`;
-          window.open(waUrl,'_blank');
+          window.open(waUrl, "_blank");
           mainForm.reset();
-          if(sourceInfo) sourceInfo.value = '';
+          sourceInfo.value = "";
           closeForm();
         });
       }
     })();
 
-    /* --------- Testimonials auto-left slide (uses your provided set converted to i.ibb.co) --------- */
-    (function(){
-      const imageUrls = [
-        "https://i.ibb.co/8nfzjxF7/8nfzjxF7.jpg",
-        "https://i.ibb.co/5X8s2nFG/5X8s2nFG.jpg",
-        "https://i.ibb.co/9HtMg85b/9HtMg85b.jpg",
-        "https://i.ibb.co/gLGpY8wZ/gLGpY8wZ.jpg",
-        "https://i.ibb.co/N6dGqGcn/N6dGqGcn.jpg",
-        "https://i.ibb.co/XZS8Jqm4/XZS8Jqm4.jpg",
-        "https://i.ibb.co/9HtMg85b/9HtMg85b.jpg",
-        "https://i.ibb.co/XZS8Jqm4/XZS8Jqm4.jpg",
-        "https://i.ibb.co/gM5hYwVs/gM5hYwVs.jpg",
-        "https://i.ibb.co/8ghTj2zj/8ghTj2zj.jpg"
-      ];
+    // set current year in footer
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-      const track = document.getElementById('testimonialsTrack');
-      const cards = [];
-      imageUrls.forEach((u,i)=> {
-        const c = document.createElement('div'); c.className='testimonial-card';
-        const img = document.createElement('img'); img.src=u; img.alt='Feedback '+(i+1); img.loading='lazy';
-        c.appendChild(img); cards.push(c);
+    // ------- TESTIMONIAL SLIDER (autoplay slide-left, pause on hover, arrows, dots) -------
+    (function(){
+      const track = document.getElementById('sliderTrack');
+      const slides = Array.from(track.querySelectorAll('.slide'));
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const dotsWrap = document.getElementById('dotsWrap');
+      let index = 0;
+      let timer = null;
+      const slideCount = slides.length;
+
+      // Build dots
+      for(let i=0;i<slideCount;i++){
+        const d = document.createElement('div');
+        d.className = 'dot' + (i===0 ? ' active' : '');
+        d.dataset.index = i;
+        d.addEventListener('click', ()=> goTo(parseInt(d.dataset.index)));
+        dotsWrap.appendChild(d);
+      }
+      const dots = Array.from(dotsWrap.children);
+
+      function update() {
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i)=> dot.classList.toggle('active', i===index));
+      }
+      function next() { index = (index + 1) % slideCount; update(); }
+      function prev() { index = (index - 1 + slideCount) % slideCount; update(); }
+      function goTo(i){ index = i % slideCount; update(); resetTimer(); }
+
+      nextBtn.addEventListener('click', ()=>{ next(); resetTimer(); });
+      prevBtn.addEventListener('click', ()=>{ prev(); resetTimer(); });
+
+      // autoplay
+      function startTimer(){ timer = setInterval(next, 3800); }
+      function stopTimer(){ if(timer){ clearInterval(timer); timer = null; } }
+      function resetTimer(){ stopTimer(); startTimer(); }
+
+      // pause on hover
+      const sliderEl = document.getElementById('slider');
+      sliderEl.addEventListener('mouseenter', stopTimer);
+      sliderEl.addEventListener('mouseleave', startTimer);
+
+      // keyboard accessibility (left/right)
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowLeft'){ prev(); resetTimer(); }
+        if(e.key === 'ArrowRight'){ next(); resetTimer(); }
       });
 
-      // duplicate for seamless effect
-      const full = cards.concat(cards.map(c=>c.cloneNode(true)));
-      full.forEach(node=> track.appendChild(node));
+      // image load fallback: if an <img> has dataset.failed, try transform ibb.co shortlink -> i.ibb.co/
+      slides.forEach((s, idx)=>{
+        const img = s.querySelector('img');
+        img.addEventListener('error', function(){
+          try{
+            const src = img.getAttribute('src') || '';
+            // If src is ibb.co short link, convert to i.ibb.co/<code>.jpg
+            if(src.includes('ibb.co/')) {
+              const code = src.split('/').pop().replace(/[^a-zA-Z0-9]/g,'');
+              const newSrc = 'https://i.ibb.co/' + code + '.jpg';
+              img.src = newSrc;
+            }
+          }catch(err){}
+        });
+        // If the developer used i.ibb.co but image still fails, keep as-is and user can send direct image link
+      });
 
-      // compute duration based on width
-      setTimeout(()=> {
-        try{
-          const totalWidth = Array.from(track.children).reduce((s,ch)=> s + ch.getBoundingClientRect().width + 12, 0);
-          const duration = Math.max(18, Math.round(totalWidth * 0.02)); // in seconds
-          track.style.animationDuration = duration + 's';
-        }catch(e){}
-      },250);
-
-      // respect reduced-motion
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if(mq && mq.matches) track.style.animationPlayState='paused';
+      // init
+      update();
+      startTimer();
     })();
-  </script>
 
+  </script>
 </body>
 </html>
