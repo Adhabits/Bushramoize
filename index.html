@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Farzeen Khan — Empowering Females to Empower</title>
+    <title>Bushra Moiz — Empowering Females to Empower</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -290,8 +290,6 @@
             width: 100%;
             border-radius: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            object-fit: cover;
-            height: 100%;
         }
 
         .stat-card {
@@ -353,87 +351,6 @@
             flex-shrink: 0;
         }
 
-        /* Student feedback slider styles */
-        .feedback-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .feedback-slider {
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            display: flex;
-            gap: 14px;
-            padding: 12px;
-            scrollbar-width: none; /* Firefox */
-        }
-
-        .feedback-slider::-webkit-scrollbar {
-            display: none; /* Chrome */
-        }
-
-        .feedback-card {
-            min-width: 240px;
-            max-width: 320px;
-            border-radius: 12px;
-            background: white;
-            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .feedback-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .feedback-body {
-            padding: 12px;
-        }
-
-        .feedback-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .feedback-arrow {
-            background: rgba(17, 24, 39, 0.9);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feedback-title {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .feedback-card {
-                min-width: 200px;
-                max-width: 260px;
-            }
-
-            .feedback-card img {
-                height: 160px;
-            }
-
-            .feedback-controls {
-                flex-direction: row;
-            }
-        }
-
         .video-container {
             position: relative;
             width: 100%;
@@ -485,6 +402,110 @@
             background: white;
         }
 
+        .video-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-btn {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .video-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .video-thumbnail-card {
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .video-thumbnail-card:hover {
+            border-color: var(--pink-500);
+        }
+
+        .video-thumbnail-card.active {
+            border-color: var(--pink-500);
+            background: linear-gradient(135deg, var(--pink-50), var(--purple-50));
+        }
+
+        .accordion-button {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--pink-600);
+            background-color: var(--pink-50);
+        }
+
+        .accordion-button:focus {
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.06);
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info-card {
+            background: linear-gradient(135deg, var(--pink-500), var(--purple-500));
+            color: white;
+        }
+
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer-btn {
+            background: linear-gradient(135deg, var(--pink-500), var(--purple-500));
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--pink-600), var(--purple-600));
+            color: white;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -528,8 +549,147 @@
             .display-5 {
                 font-size: 1.75rem;
             }
+
+            .step-card {
+                margin-bottom: 0.5rem;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .stk-stack {
+                position: relative;
+            }
+
+            .step-card-One {
+                position: sticky;
+                top: 40px;
+                z-index: 11;
+            }
+
+            .step-card-Two {
+                position: sticky;
+                top: 86px;
+                z-index: 10;
+            }
+
+            .step-card-Three {
+                position: sticky;
+                top: 107px;
+                z-index: 9;
+            }
+
+            .step-card-Four {
+                position: sticky;
+                top: 130px;
+                z-index: 8;
+            }
+
+            .step-card-five {
+                width: 100%;
+                height: 80px;
+            }
+
+            .benefit-card {
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .Seekhenge_Fixd {
+                position: relative;
+            }
+
+            .Seekhenge_Fixd_One {
+                position: sticky;
+                top: 40px;
+                z-index: 11;
+            }
+
+            .Seekhenge_Fixd_Two {
+                position: sticky;
+                top: 66px;
+                z-index: 10;
+            }
+
+            .Seekhenge_Fixd_Three {
+                position: sticky;
+                top: 94px;
+                z-index: 9;
+            }
+
+            .Seekhenge_Fixd_Four {
+                position: sticky;
+                top: 124px;
+                z-index: 8;
+            }
+
+            .Seekhenge_Fixd_five {
+                width: 100%;
+                height: 40px;
+            }
         }
 
+        .footer {
+            color: #9ca3af;
+        }
+
+        .footer h3,
+        .footer h4,
+        .footer .fw-bold,
+        .footer .fw-semibold {
+            color: white;
+        }
+
+        .footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer .text-muted {
+            color: #9ca3af !important;
+        }
+
+        .footer-btn {
+            background: white;
+            color: var(--pink-600);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .footer-btn:hover {
+            background: var(--pink-600);
+            color: white;
+        }
+
+        .gradient-pink-purple {
+            background: linear-gradient(to right, #ec4899, #8b5cf6);
+        }
+
+        .gradient-box-1 {
+            background: linear-gradient(to right, #fdf2f8, #f3e8ff);
+        }
+
+        .gradient-box-2 {
+            background: linear-gradient(to right, #f3e8ff, #fdf2f8);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 520px) {
+            #formContainer .card {
+                padding: 18px;
+            }
+        }
     </style>
 </head>
 
@@ -546,15 +706,9 @@
                     Join Over <span class="counter" data-target="100000" data-suffix="+">0</span> Working Professionals,
                     Housewives, Students & Self Employed with us
                 </h1>
-                <p class="lead text-muted mb-4">
+                <p class="lead text-muted mb-5">
                     From Homemaker to Online Money Maker Coach - Empowering Females to Empower
                 </p>
-
-                <!-- User requested: show Google Drive image after headline (kept from earlier) -->
-                <img src="https://drive.google.com/uc?export=view&id=1F5hXt7b0Os43tklXTLb7yAaK5qSBMmFf"
-                     alt="Hero Image"
-                     class="img-fluid rounded my-4"
-                     style="max-height:360px; object-fit:cover; display:inline-block;">
             </div>
 
             <!-- Form Card (Initially Hidden) -->
@@ -635,18 +789,16 @@
 
         </div>
     </section>
-
-    <!-- About Section (Coach image replaced with your ibb image) -->
+    <!-- About Section -->
     <section id="about" class="py-5 bg-white bg-opacity-50">
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 animate-slide-left">
-                    <!-- Replaced as requested -->
-                    <img src="https://i.ibb.co/Z1wzHtRT/bushra-image.jpg" alt="Farzeen Khan" class="about-img">
+                    <img src="https://picsum.photos/200/200?random=1" alt="Bushra Moiz" class="about-img">
                 </div>
                 <div class="col-lg-6 animate-slide-right">
                     <div class="badge-custom mb-3">💫 Your Coach</div>
-                    <h2 class="display-5 fw-bold mb-3">Hi, Farzeen Khan this side!</h2>
+                    <h2 class="display-5 fw-bold mb-3">Hi, Bushra Moiz this side!</h2>
 
                     <div class="mb-4">
                         <p class="fs-5 d-flex align-items-center gap-3 mb-1">
@@ -700,104 +852,139 @@
         </div>
     </section>
 
-    <!-- Student Feedback (NEW) - placed above What Happens -->
-    <section id="feedback" class="py-5" style="background: linear-gradient(135deg, var(--purple-50), var(--pink-50));">
+    <!-- Mobile Video Section (kept) -->
+    <section class="py-5 d-lg-none" style="background: linear-gradient(135deg, var(--purple-50), var(--pink-50));">
         <div class="container">
-            <div class="text-center mb-4">
-                <h2 class="display-5 fw-bold mb-2">Student Feedback</h2>
-                <p class="lead text-muted">Real messages & images from students — swipe or use arrows to view</p>
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3 text-gradient">🎥 Watch Success Stories</h2>
+                <p class="lead text-muted">Real stories from real students who transformed their lives</p>
             </div>
 
-            <div class="row align-items-center">
-                <!-- Left: slider -->
-                <div class="col-lg-9">
-                    <div class="feedback-wrap">
-                        <div id="feedbackSlider" class="feedback-slider" aria-label="Student feedback slider">
-                            <!-- Each card uses the images you provided -->
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/8nfzjxF7/student1.jpg" alt="student 1">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Rita — Earned ₹35K</div>
-                                    <div class="small text-muted">"Maine is program se actual earning start ki."</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/5X8s2nFG/student2.jpg" alt="student 2">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Shaista — Part-time freelancer</div>
-                                    <div class="small text-muted">"Mentorship bahut clear aur practical thi."</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/9HtMg85b/student3.jpg" alt="student 3">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Neha — From zero to client</div>
-                                    <div class="small text-muted">"Phone se real client mila, thanks!"</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/gLGpY8wZ/student4.jpg" alt="student 4">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Ayesha — 50K month</div>
-                                    <div class="small text-muted">"Support 24/7, simple steps."</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/N6dGqGcn/student5.jpg" alt="student 5">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Kavita</div>
-                                    <div class="small text-muted">"Confidence build hua aur earning stable hui."</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/XZS8Jqm4/student6.jpg" alt="student 6">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Renu</div>
-                                    <div class="small text-muted">"Course simple aur practical hai."</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/gM5hYwVs/student7.jpg" alt="student 7">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Meera</div>
-                                    <div class="small text-muted">"Daily mentorship helpful rahi."</div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-card">
-                                <img src="https://i.ibb.co/8ghTj2zj/student8.jpg" alt="student 8">
-                                <div class="feedback-body">
-                                    <div class="feedback-title">Zara</div>
-                                    <div class="small text-muted">"Start karne ke liye perfect guidance."</div>
-                                </div>
-                            </div>
-
+            <div class="row g-5 align-items-center">
+                <!-- Left Video Player -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-lg">
+                        <div class="video-container " id="videoContainerMobile">
+                            <video id="mainVideoMobile" poster="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Success+Stories"
+                                controls></video>
+                            <button class="btn-video-control" id="muteBtnMobile" aria-label="Mute toggle">
+                                <i data-lucide="volume-2"></i>
+                            </button>
+                        </div>
+                        <div class="card-body p-4">
+                            <h3 class="h5 fw-bold mb-2" id="videoTitleMobile">Success Stories - Student Testimonials</h3>
+                            <p class="text-muted mb-0" id="videoDescriptionMobile">Watch how our students transformed their
+                                lives</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: controls -->
-                <div class="col-lg-3 text-lg-end mt-3 mt-lg-0">
-                    <div class="feedback-controls d-inline-flex">
-                        <button id="fbPrev" class="feedback-arrow" aria-label="Previous feedback">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L6.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"/>
-                            </svg>
-                        </button>
+                <!-- Right Thumbnails (mobile kept simple) -->
+                <div class="col-lg-6">
+                    <h3 class="h4 fw-bold mb-4">Choose Your Inspiration</h3>
 
-                        <button id="fbNext" class="feedback-arrow" aria-label="Next feedback">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 0 0 .708L9.293 7 4.646 11.646a.5.5 0 1 0 .708.708l5-5a.5.5 0 0 0 0-.708l-5-5a.5.5 0 0 0-.708 0z"/>
-                            </svg>
-                        </button>
+                    <div class="card video-thumbnail-card p-3 mb-3 active" data-video-index="0">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="position-relative bg-dark bg-opacity-25" style="width: 80px; height: 50px; flex-shrink: 0;">
+                                <img src="https://via.placeholder.com/80x50/8b5cf6/ffffff?text=Video" class="w-100 h-100 rounded" />
+                                <div class="position-absolute top-50 start-50 translate-middle">
+                                    <i data-lucide="play" style="width: 16px; height: 16px; color: white;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="h6 fw-semibold mb-1">Success Stories - Student Testimonials</h4>
+                                <p class="small text-muted mb-0">Watch how our students transformed their lives</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card video-thumbnail-card p-3 mb-3" data-video-index="1">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="position-relative bg-dark bg-opacity-25" style="width: 80px; height: 50px; flex-shrink: 0;">
+                                <img src="https://via.placeholder.com/80x50/ec4899/ffffff?text=Video" class="w-100 h-100 rounded" />
+                                <div class="position-absolute top-50 start-50 translate-middle">
+                                    <i data-lucide="play" style="width: 16px; height: 16px; color: white;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="h6 fw-semibold mb-1">Behind the Scenes - Bushra's Journey</h4>
+                                <p class="small text-muted mb-0">Learn about my journey from homemaker to coach</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-3" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
+                        <h4 class="h6 fw-bold mb-3">🌟 Why Watch These Videos?</h4>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span style="width: 8px; height: 8px; background: var(--pink-500); border-radius: 50%; display: inline-block;"></span>
+                                Real student success stories
+                            </li>
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span style="width: 8px; height: 8px; background: var(--purple-500); border-radius: 50%; display: inline-block;"></span>
+                                Behind-the-scenes journey
+                            </li>
+                            <li class="d-flex align-items-center gap-2 mb-2">
+                                <span style="width: 8px; height: 8px; background: var(--pink-500); border-radius: 50%; display: inline-block;"></span>
+                                Proof of genuine results
+                            </li>
+                            <li class="d-flex align-items-center gap-2">
+                                <span style="width: 8px; height: 8px; background: var(--purple-500); border-radius: 50%; display: inline-block;"></span>
+                                Motivation and inspiration
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">🌱 Aap Yahan Seekhenge</h2>
+                <p class="lead text-muted">Real, skill-based aur sustainable online income opportunity</p>
+            </div>
+
+            <div class="row g-4 Seekhenge_Fixd">
+                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_One">
+                    <div class="card rounded-0 benefit-card">
+                        <div class="icon-circle">
+                            <i data-lucide="sparkles" class="lucide-md"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-3">In-demand Digital Skills</h3>
+                        <p class="text-muted mb-0">Latest market skills jo demand mein hain</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Two">
+                    <div class="card rounded-0 benefit-card">
+                        <div class="icon-circle">
+                            <i data-lucide="phone" class="lucide-md"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-3">Phone Se Kaam</h3>
+                        <p class="text-muted mb-0">Apne phone se professional kaam karna</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Three">
+                    <div class="card rounded-0 benefit-card">
+                        <div class="icon-circle">
+                            <i data-lucide="clock" class="lucide-md"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-3">Flexible Timing</h3>
+                        <p class="text-muted mb-0">Apne time ke according kaam karna</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_Four">
+                    <div class="card rounded-0 benefit-card">
+                        <div class="icon-circle">
+                            <i data-lucide="target" class="lucide-md"></i>
+                        </div>
+                        <h3 class="h5 fw-bold mb-3">Online Identity</h3>
+                        <p class="text-muted mb-0">Confidently apni online presence build karna</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 Seekhenge_Fixd_five"></div>
             </div>
         </div>
     </section>
@@ -817,7 +1004,7 @@
                             <div>
                                 <h3 class="h5 fw-bold mb-2">Instant Connection</h3>
                                 <p class="text-muted mb-0">As soon as you message on WhatsApp, you will instantly
-                                    connect with me (FARZEEN KHAN) for personal guidance.</p>
+                                    connect with me (BUSHRA MOIZ) for personal guidance.</p>
                             </div>
                         </div>
                     </div>
@@ -865,7 +1052,7 @@
             <div class="text-center mt-5">
                 <button id="openFormBtn" class="btn rounded-0 btn-gradient btn-lg px-5 py-3 open-any">
                     <i data-lucide="message-circle" class="lucide-sm me-2"></i>
-                    Message on WhatsApp: +91 9289142724
+                    Message on WhatsApp: +91 6202798735
                 </button>
             </div>
         </div>
@@ -1116,8 +1303,8 @@
                 </div>
 
                 <div class="mb-4">
-                    <p class="fs-6 fw-semibold mb-3">📌 Save My Number First: +91 9289142724</p>
-                    <a href="https://wa.me/919289142724" class="btn btn-lg px-5 py-1 open-any"
+                    <p class="fs-6 fw-semibold mb-3">📌 Save My Number First: +91 6202798735</p>
+                    <a href="https://wa.me/916202798735" class="btn btn-lg px-5 py-1 open-any"
                         style="background: white; color: var(--pink-600); font-weight: 600; border-radius: 50px;">
                         <i data-lucide="message-circle" class="lucide-sm me-2"></i>
                         Click to Message on WhatsApp
@@ -1144,7 +1331,7 @@
                     <p class="fs-7 mb-3">
                         🌟 Empower her with skills • 🌈 Support her with vision • 🚀 Watch her dreams turn into direction
                     </p>
-                    <p class="fs-4 fw-bold">❤ With Strength & Sincerity, Farzeen Khan</p>
+                    <p class="fs-4 fw-bold">❤ With Strength & Sincerity, Bushra Moiz</p>
                     <p class="fs-7 opacity-90">👩‍🏫 Empowering Females to Empower</p>
                 </div>
             </div>
@@ -1156,14 +1343,14 @@
         <div class="container ">
             <div class="row g-4">
                 <div class="col-md-3">
-                    <h3 class="h5 fw-bold mb-3">Farzeen Khan</h3>
+                    <h3 class="h5 fw-bold mb-3">Bushra Moiz</h3>
                     <p class="text-muted mb-3">
                         Empowering females to achieve financial independence through skill-based online earning
                         opportunities.
                     </p>
                     <div class="d-flex align-items-center gap-2" style="color: var(--pink-400);">
                         <i data-lucide="phone" style="width: 16px; height: 16px;"></i>
-                        +91 9289142724
+                        +91 6202798735
                     </div>
                 </div>
 
@@ -1195,11 +1382,11 @@
                     <ul class="list-unstyled">
                         <li class="d-flex align-items-center gap-2 mb-2 text-muted">
                             <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
-                            <span class="small">farzeen@example.com</span>
+                            <span class="small">bushra@example.com</span>
                         </li>
                         <li class="d-flex align-items-center gap-2 mb-3 text-muted">
                             <i data-lucide="phone" style="width: 16px; height: 16px;"></i>
-                            <span class="small">+91 9289142724</span>
+                            <span class="small">+91 6202798735</span>
                         </li>
                         <li>
                             <button class="footer-btn open-any"
@@ -1213,7 +1400,7 @@
 
             <div class="border-top border-secondary mt-5 pt-4 text-center text-muted">
                 <p class="mb-0">
-                    &copy; <span id="currentYear"></span> Farzeen Khan. All rights reserved. Made with ❤ for empowering
+                    &copy; <span id="currentYear"></span> Bushra Moiz. All rights reserved. Made with ❤ for empowering
                     women.
                 </p>
             </div>
@@ -1259,35 +1446,7 @@
             counters.forEach(counter => observer.observe(counter));
         });
 
-        // ------- Feedback slider controls -------
-        (function () {
-            const slider = document.getElementById('feedbackSlider');
-            const prev = document.getElementById('fbPrev');
-            const next = document.getElementById('fbNext');
-
-            // amount to scroll per click (one card width approx)
-            const SCROLL_AMOUNT = 280;
-
-            if (prev && slider) {
-                prev.addEventListener('click', () => {
-                    slider.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' });
-                });
-            }
-            if (next && slider) {
-                next.addEventListener('click', () => {
-                    slider.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
-                });
-            }
-
-            // Allow keyboard arrows when slider focused
-            slider.setAttribute('tabindex', '0');
-            slider.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') slider.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
-                if (e.key === 'ArrowLeft') slider.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' });
-            });
-        })();
-
-        // ------- Video thumbnails (kept) -------
+        // ------- Video thumbnails -------
         const videos = [
             {
                 src: "https://www.w3schools.com/html/mov_bbb.mp4",
@@ -1297,8 +1456,8 @@
             },
             {
                 src: "https://www.w3schools.com/html/movie.mp4",
-                poster: "https://via.placeholder.com/600x400/ec4899/ffffff?text=Farzeen's+Journey",
-                title: "Behind the Scenes - Farzeen's Journey",
+                poster: "https://via.placeholder.com/600x400/ec4899/ffffff?text=Bushra's+Journey",
+                title: "Behind the Scenes - Bushra's Journey",
                 desc: "Learn about my journey from homemaker to coach"
             }
         ];
@@ -1362,7 +1521,7 @@
             const sourceInfo = document.getElementById("sourceInfo");
 
             // target WhatsApp number (international format with country code 91)
-            const WA_NUMBER_INT = "919289142724"; // +91 9289142724
+            const WA_NUMBER_INT = "916202798735"; // +91 6202798735
 
             // last click source stored to include in message
             let lastClickSource = "site";
@@ -1450,7 +1609,7 @@
                     }
 
                     const lines = [];
-                    lines.push(`Hello Farzeen Ma'am, I am interested in this work.`);
+                    lines.push(`Hello Bushra Ma'am, I am interested in this work.`);
                     lines.push(`Here are my details:`);
                     lines.push(`Name: ${name}`);
                     lines.push(`Phone: ${phone}`);
@@ -1479,3 +1638,4 @@
 </body>
 
 </html>
+
