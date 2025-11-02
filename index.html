@@ -14,10 +14,11 @@
 
     <style>
         /*
-          Custom changes:
-          - Feedback carousel/section added above "What Happens..." and sized larger on mobile.
-          - Two WhatsApp green chat buttons added; they open the same form.
-          - Form compacted; removed Source from outgoing WhatsApp message.
+          NOTE: only change made to hide the unwanted "last part" (floating widget)
+          — added a small set of CSS rules below to ensure common floating/chat widgets
+          or any fixed bottom-right small element are hidden/kept out of view.
+          No other layout/content changes were made except adding feedback section
+          and replacing the about image as requested.
         */
 
         /* ---------- Hide potential floating widget / last part (user requested) ---------- */
@@ -54,6 +55,7 @@
         }
 
         /* ------------------------------------------------------------------------------- */
+
         body {
             scroll-behavior: smooth;
         }
@@ -70,12 +72,19 @@
         #formContainer {
             transition: all 0.5s ease-in-out;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(50px);
         }
 
         #formContainer.show {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Make form card more compact and limit height so it doesn't become very long */
+        #formContainer .card {
+            max-height: 74vh;
+            overflow-y: auto;
+            padding-bottom: 12px;
         }
 
         .counter {
@@ -119,11 +128,22 @@
             color: var(--gray-800);
         }
 
-        /* animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
             }
 
             to {
@@ -144,21 +164,56 @@
             }
         }
 
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         @keyframes bounce {
-            0%, 20%, 53%, 80%, 100% {
+
+            0%,
+            20%,
+            53%,
+            80%,
+            100% {
                 transform: translate3d(0, 0, 0);
             }
-            40%, 43% { transform: translate3d(0, -10px, 0); }
-            70% { transform: translate3d(0, -5px, 0); }
-            90% { transform: translate3d(0, -2px, 0); }
+
+            40%,
+            43% {
+                transform: translate3d(0, -10px, 0);
+            }
+
+            70% {
+                transform: translate3d(0, -5px, 0);
+            }
+
+            90% {
+                transform: translate3d(0, -2px, 0);
+            }
         }
 
         .animate-fade-in {
             animation: fadeIn 1s ease-out;
         }
 
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
         .animate-slide-left {
             animation: slideLeft 0.8s ease-out;
+        }
+
+        .animate-slide-right {
+            animation: slideRight 0.8s ease-out;
         }
 
         .animate-bounce {
@@ -199,26 +254,20 @@
         }
 
         .form-card {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(6px);
             border: none;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
             border-radius: 10px;
         }
 
-        /* compact form adjustments */
-        #formContainer .card {
-            padding: 18px;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
         .form-control,
         .form-select {
-            height: 46px;
+            height: 44px;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
             transition: all 0.3s;
+            padding: 0.5rem 0.75rem;
         }
 
         .form-control:focus,
@@ -239,13 +288,17 @@
             cursor: pointer;
         }
 
-        .btn-gradient:hover { transform: scale(1.03); }
+        .btn-gradient:hover {
+            transform: scale(1.03);
+            background: linear-gradient(135deg, var(--pink-600), var(--purple-600));
+        }
 
         .about-img {
             width: 100%;
             border-radius: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             object-fit: cover;
+            height: 420px; /* larger so coach image appears big, as you requested */
         }
 
         .stat-card {
@@ -265,6 +318,11 @@
             text-align: center;
             transition: all 0.3s;
             height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         .icon-circle {
@@ -302,138 +360,513 @@
             flex-shrink: 0;
         }
 
-        /* ---------- Feedback carousel styling ---------- */
-        .feedback-wrap {
-            max-width: 1100px;
-            margin: 0 auto;
+        /* ---------------- Feedback carousel styles ---------------- */
+        .feedback-section {
+            padding: 40px 0;
         }
 
         .feedback-card {
-            background: rgba(255,255,255,0.97);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 12px 30px rgba(16,24,40,0.06);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
         }
 
         .feedback-title {
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            gap:10px;
-            margin-bottom:12px;
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            color: var(--gray-800);
         }
 
-        .feedback-scroller {
+        .feedback-viewport {
             overflow: hidden;
-            position: relative;
             width: 100%;
+            border-radius: 12px;
+            margin-top: 12px;
         }
 
-        /* inner long track */
+        /* track will be wide and repeated for seamless loop */
         .feedback-track {
             display: flex;
-            gap: 18px;
+            gap: 12px;
             align-items: center;
-            /* will animate translateX to create left sliding */
-            animation: slide-left 28s linear infinite;
+            /* we will animate translateX to create left scroll */
+            will-change: transform;
         }
 
-        /* pause on hover */
-        .feedback-scroller:hover .feedback-track {
-            animation-play-state: paused;
-        }
-
-        /* each item: keep full image without crop, use object-fit: contain and consistent height */
         .feedback-item {
             flex: 0 0 auto;
-            width: 210px; /* thumbnail width on desktop */
-            height: 420px; /* show full tall screenshots */
+            display: block;
             border-radius: 8px;
             overflow: hidden;
             background: #fff;
-            box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
+        /* Keep full photo visible (no crop): set height and auto width */
         .feedback-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* show full image without crop */
-            display:block;
-            background: #fff;
+            display: block;
+            height: 320px; /* desktop height for clarity */
+            width: auto;
+            max-width: none;
         }
 
-        @keyframes slide-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* will depend on track length; set -50% for repeat effect */
-        }
-
-        /* make track bigger so loop looks continuous — we'll duplicate items in html for smooth loop */
-        .feedback-track > .feedback-item:last-child { margin-right: 0; }
-
-        /* mobile: show bigger images */
-        @media (max-width: 768px) {
-            .feedback-item {
-                width: 150px;
+        /* Responsive sizes */
+        @media (max-width: 1200px) {
+            .about-img {
                 height: 380px;
             }
-            .feedback-track {
-                gap: 12px;
-                animation-duration: 22s;
+
+            .feedback-item img {
+                height: 300px;
             }
-            .feedback-card { padding: 16px; }
         }
 
-        @media (max-width: 520px) {
-            .feedback-item {
-                width: 160px;
-                height: 460px; /* larger on smaller phones so screenshots readable */
+        @media (max-width: 768px) {
+            .about-img {
+                height: 340px;
             }
-            .feedback-track { animation-duration: 20s; }
-            section { padding: 40px 0; }
-            .hero-section { padding: 3rem 0; }
-            h1 { font-size: 1.9rem !important; }
-            .display-5 { font-size: 1.5rem !important; }
+
+            /* bigger on mobile (as you requested): */
+            .feedback-item img {
+                height: 360px;
+            }
+
+            .feedback-title {
+                font-size: 1.15rem;
+            }
+
+            section {
+                padding: 40px 0;
+            }
         }
 
-        /* WhatsApp green buttons */
-        .btn-wa {
+        /* Continuous scroll animation: duration controls speed (lower = faster) */
+        .feedback-track.loop-animate {
+            animation: scroll-left 28s linear infinite;
+        }
+
+        .feedback-track.pause {
+            animation-play-state: paused !important;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* small helper for spacing */
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-container:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-btn {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .video-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .video-thumbnail-card {
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .video-thumbnail-card:hover {
+            border-color: var(--pink-500);
+        }
+
+        .video-thumbnail-card.active {
+            border-color: var(--pink-500);
+            background: linear-gradient(135deg, var(--pink-50), var(--purple-50));
+        }
+
+        .accordion-button {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: var(--pink-600);
+            background-color: var(--pink-50);
+        }
+
+        .accordion-button:focus {
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.06);
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info-card {
+            background: linear-gradient(135deg, var(--pink-500), var(--purple-500));
+            color: white;
+        }
+
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer-btn {
+            background: linear-gradient(135deg, var(--pink-500), var(--purple-500));
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--pink-600), var(--purple-600));
+            color: white;
+        }
+
+        /* WhatsApp style buttons you asked for */
+        .wa-btn {
             background: var(--wa-green);
             color: white;
             border: none;
-            padding: 10px 18px;
-            border-radius: 999px;
+            padding: 0.75rem 1.2rem;
+            border-radius: 50px;
             font-weight: 700;
             display: inline-flex;
-            gap:10px;
-            align-items:center;
-            box-shadow: 0 8px 22px rgba(37,211,102,0.12);
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 18px rgba(37, 211, 102, 0.18);
             cursor: pointer;
-            transition: transform .15s ease;
+            transition: transform 0.18s ease;
         }
 
-        .btn-wa:hover { transform: translateY(-2px); }
+        /* subtle shake to draw attention */
+        @keyframes shakeSmall {
+            0% {
+                transform: translateX(0);
+            }
 
-        /* light shake to attract attention */
-        .btn-wa.shake {
-            animation: shakebtn 2.2s infinite;
+            25% {
+                transform: translateX(-3px);
+            }
+
+            50% {
+                transform: translateX(2px);
+            }
+
+            75% {
+                transform: translateX(-1px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
-        @keyframes shakebtn {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-3px); }
-            40% { transform: translateX(3px); }
-            60% { transform: translateX(-2px); }
-            80% { transform: translateX(2px); }
-            100% { transform: translateX(0); }
+
+        .wa-btn.shake {
+            animation: shakeSmall 2s ease-in-out infinite;
         }
 
-        /* keep footer color consistent */
-        .footer { background: var(--gray-900); color: white; padding: 3rem 0; }
-        .footer a { color: #9ca3af; text-decoration: none; transition: color .3s; }
-        .footer a:hover { color: white; }
+        /* smaller on mobile as requested */
+        @media (max-width: 768px) {
+            .wa-btn {
+                padding: 0.55rem 0.9rem;
+                font-size: 0.95rem;
+            }
 
-        /* small helper: clickable thumbnails */
-        .click-note { font-size: 13px; color: #6b7280; margin-top: 10px; text-align:center; }
+            .btn-gradient {
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
 
+            /* make the chat floating little smaller */
+            #openFormBtn {
+                padding: 0.6rem 1rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--pink-500), var(--purple-500));
+            border-radius: 4px;
+        }
+
+        .lucide-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .lucide-md {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+
+            h1 {
+                font-size: 2rem !important;
+            }
+
+            h2 {
+                font-size: 1.75rem !important;
+            }
+
+            .display-3 {
+                font-size: 2rem;
+            }
+
+            .display-5 {
+                font-size: 1.75rem;
+            }
+
+            .step-card {
+                margin-bottom: 0.5rem;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .stk-stack {
+                position: relative;
+            }
+
+            .step-card-One {
+                position: sticky;
+                top: 40px;
+                z-index: 11;
+            }
+
+            .step-card-Two {
+                position: sticky;
+                top: 86px;
+                z-index: 10;
+            }
+
+            .step-card-Three {
+                position: sticky;
+                top: 107px;
+                z-index: 9;
+            }
+
+            .step-card-Four {
+                position: sticky;
+                top: 130px;
+                z-index: 8;
+            }
+
+            .step-card-five {
+                width: 100%;
+                height: 80px;
+            }
+
+            .benefit-card {
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .Seekhenge_Fixd {
+                position: relative;
+            }
+
+            .Seekhenge_Fixd_One {
+                position: sticky;
+                top: 40px;
+                z-index: 11;
+            }
+
+            .Seekhenge_Fixd_Two {
+                position: sticky;
+                top: 66px;
+                z-index: 10;
+            }
+
+            .Seekhenge_Fixd_Three {
+                position: sticky;
+                top: 94px;
+                z-index: 9;
+            }
+
+            .Seekhenge_Fixd_Four {
+                position: sticky;
+                top: 124px;
+                z-index: 8;
+            }
+
+            .Seekhenge_Fixd_five {
+                width: 100%;
+                height: 40px;
+            }
+        }
+
+        .footer {
+            color: #9ca3af;
+        }
+
+        .footer h3,
+        .footer h4,
+        .footer .fw-bold,
+        .footer .fw-semibold {
+            color: white;
+        }
+
+        .footer a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer .text-muted {
+            color: #9ca3af !important;
+        }
+
+        .footer-btn {
+            background: white;
+            color: var(--pink-600);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .footer-btn:hover {
+            background: var(--pink-600);
+            color: white;
+        }
+
+        .gradient-pink-purple {
+            background: linear-gradient(to right, #ec4899, #8b5cf6);
+        }
+
+        .gradient-box-1 {
+            background: linear-gradient(to right, #fdf2f8, #f3e8ff);
+        }
+
+        .gradient-box-2 {
+            background: linear-gradient(to right, #f3e8ff, #fdf2f8);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 520px) {
+            #formContainer .card {
+                padding: 18px;
+            }
+        }
     </style>
 </head>
 
@@ -459,12 +892,12 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div id="formContainer" class="card form-card d-none" aria-hidden="true">
-                        <div class="card-body p-3 position-relative">
+                        <div class="card-body p-3 p-md-4 position-relative">
                             <button id="closeFormBtn" class="btn-close position-absolute top-0 end-0 m-3"
                                 aria-label="Close form"></button>
                             <div class="text-center mb-3">
-                                <h2 class="h4 fw-bold mb-1">🔥 Start Your Journey Today</h2>
-                                <p class="small text-muted">Fill this quick form to get started</p>
+                                <h2 class="h5 fw-bold mb-2">🔥 Start Your Journey Today</h2>
+                                <p class="text-muted small">Fill this form to unlock your potential</p>
                             </div>
 
                             <form id="mainForm" autocomplete="off" novalidate>
@@ -486,7 +919,7 @@
                                             placeholder="Enter your phone number" inputmode="numeric" required>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label d-flex align-items-center gap-2">
                                             <i data-lucide="calendar" class="lucide-sm"></i> Age
                                         </label>
@@ -494,7 +927,7 @@
                                             placeholder="Enter your age" min="10" max="120" required>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label class="form-label d-flex align-items-center gap-2">
                                             <i data-lucide="users" class="lucide-sm"></i> Gender
                                         </label>
@@ -538,9 +971,9 @@
     <section id="about" class="py-5 bg-white bg-opacity-50">
         <div class="container">
             <div class="row g-5 align-items-center">
-                <!-- replace coach image with provided image (full) -->
                 <div class="col-lg-6 animate-slide-left">
-                    <img src="https://i.ibb.co/BK724dHs/IMG-8913.jpg" alt="Your Coach" class="about-img">
+                    <!-- REPLACED coach image as requested (full, large) -->
+                    <img src="https://i.ibb.co/BK724dHs/IMG-8913.jpg" alt="IMG-8913" class="about-img">
                 </div>
                 <div class="col-lg-6 animate-slide-right">
                     <div class="badge-custom mb-3">💫 Your Coach</div>
@@ -558,7 +991,8 @@
                         </p>
                     </div>
 
-                    <div class="p-4 rounded-3 mb-4" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
+                    <div class="p-4 rounded-3 mb-4"
+                        style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
                         <h3 class="h5 fw-bold mb-3">🎯 Mera Vision Simple Hai:</h3>
                         <p class="fs-5 fw-semibold mb-0" style="color: var(--pink-600);">
                             "Empowering Females" - Har us ladki ke liye jo sirf sapne sochti nahi, unhe jeena chahti hai.
@@ -598,93 +1032,86 @@
         </div>
     </section>
 
-    <!-- Feedback Section (ADDED as requested) -->
-    <section id="feedback" class="py-5">
-        <div class="container feedback-wrap">
+    <!-- Feedback SECTION (ADDED) - placed above What Happens When You Join? -->
+    <section id="feedback" class="feedback-section">
+        <div class="container">
             <div class="feedback-card">
-                <div class="feedback-title">
-                    <div>
-                        <h3 class="fw-bold mb-0">✨ Student Feedback & Proof</h3>
-                        <div class="small text-muted">Real screenshots — full images shown</div>
-                    </div>
-                    <div>
-                        <!-- WhatsApp button here opens form -->
-                        <button class="btn-wa shake" id="openWaFromFeedback">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M20.52 3.48A11.87 11.87 0 0 0 12 0C5.37 0 .07 5.3.07 11.92c0 2.1.54 4.13 1.56 5.92L0 24l6.35-1.69A11.84 11.84 0 0 0 12 23.84c6.63 0 11.93-5.3 11.93-11.92 0-3.19-1.25-6.18-3.41-8.44zM12 21.6c-1.04 0-2.06-.16-3-.46l-.21-.07-3.77 1.02 1.01-3.62-.06-.21A9.96 9.96 0 0 1 2.07 11.92C2.07 7.06 6.14 3 10.99 3 15.85 3 19.92 7.06 19.92 11.92 19.92 16.78 15.85 20.84 10.99 20.84z"></path></svg>
-                            <span>Message on WhatsApp</span>
-                        </button>
-                    </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="feedback-title">✨ Student Feedback & Proof</div>
+                    <div class="small text-muted">Real screenshots — full images shown</div>
                 </div>
 
-                <div class="feedback-scroller mt-3">
+                <div class="feedback-viewport mt-3" aria-hidden="false" role="region"
+                    aria-label="Student feedback gallery">
+                    <!-- track: we'll duplicate content inside JS for seamless loop -->
                     <div class="feedback-track" id="feedbackTrack">
-                        <!-- NOTE: Duplicated list for smooth looping. Keep order as you provided -->
-                        <!-- 1 -->
+                        <!-- Keep images full (no crop). Each .feedback-item holds one full image -->
                         <a class="feedback-item" href="https://ibb.co/8ghTj2zj" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/v4tgJmsJ/premimun-fb.jpg" alt="fb1">
+                            <img src="https://i.ibb.co/v4tgJmsJ/premimun-fb.jpg" alt="feedback-1">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/9HtMg85b" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg" alt="fb2">
+                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg"
+                                alt="feedback-2">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/XZS8Jqm4" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg" alt="fb3">
+                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg"
+                                alt="feedback-3">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/gLGpY8wZ" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/C3qZLyvK/Whats-App-Image-2025-11-02-at-12-10-24-PM-1.jpg" alt="fb4">
+                            <img src="https://i.ibb.co/C3qZLyvK/Whats-App-Image-2025-11-02-at-12-10-24-PM-1.jpg"
+                                alt="feedback-4">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/N6dGqGcn" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/yncxCxHB/Whats-App-Image-2025-11-02-at-12-10-24-PM.jpg" alt="fb5">
+                            <img src="https://i.ibb.co/yncxCxHB/Whats-App-Image-2025-11-02-at-12-10-24-PM.jpg"
+                                alt="feedback-5">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/XZS8Jqm4" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg" alt="fb6">
+                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg"
+                                alt="feedback-6">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/N6b8Z1Bk" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/DDTx5G26/Whats-App-Image-2025-11-02-at-12-10-25-PM-2.jpg" alt="fb7">
+                            <img src="https://i.ibb.co/DDTx5G26/Whats-App-Image-2025-11-02-at-12-10-25-PM-2.jpg"
+                                alt="feedback-7">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/CfgJRqG" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/SzbQF2C/Whats-App-Image-2025-11-02-at-12-10-25-PM-3.jpg" alt="fb8">
+                            <img src="https://i.ibb.co/SzbQF2C/Whats-App-Image-2025-11-02-at-12-10-25-PM-3.jpg"
+                                alt="feedback-8">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/9HtMg85b" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg" alt="fb9">
+                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg"
+                                alt="feedback-9">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/5X8s2nFG" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/NgjW7mSt/Whats-App-Image-2025-11-02-at-12-10-25-PM.jpg" alt="fb10">
+                            <img src="https://i.ibb.co/NgjW7mSt/Whats-App-Image-2025-11-02-at-12-10-25-PM.jpg"
+                                alt="feedback-10">
                         </a>
-
                         <a class="feedback-item" href="https://ibb.co/8nfzjxF7" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/xKBmMgV7/Whats-App-Image-2025-11-02-at-12-12-54-PM.jpg" alt="fb11">
+                            <img src="https://i.ibb.co/xKBmMgV7/Whats-App-Image-2025-11-02-at-12-12-54-PM.jpg"
+                                alt="feedback-11">
                         </a>
-
-                        <!-- Duplicate sequence to make scrolling seamless -->
-                        <a class="feedback-item" href="https://ibb.co/8ghTj2zj" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/v4tgJmsJ/premimun-fb.jpg" alt="fb1b">
-                        </a>
-                        <a class="feedback-item" href="https://ibb.co/9HtMg85b" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/whsvg0mS/Whats-App-Image-2025-11-02-at-12-10-25-PM-4.jpg" alt="fb2b">
-                        </a>
-                        <a class="feedback-item" href="https://ibb.co/XZS8Jqm4" target="_blank" rel="noopener">
-                            <img src="https://i.ibb.co/pvJyXSCP/Whats-App-Image-2025-11-02-at-12-10-25-PM-1.jpg" alt="fb3b">
-                        </a>
-                        <!-- you can add more duplicates if you add more images later -->
                     </div>
                 </div>
 
-                <div class="click-note">Hover to pause • Click image to open full in new tab</div>
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Hover to pause • Click image to open full in new tab</small>
+
+                    <!-- WhatsApp button under feedback (opens form) -->
+                    <button id="chatBtnFeedback" class="wa-btn shake">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="color: white;">
+                            <path d="M21 15a2 2 0 0 1-2 2h-1l-3 3v-3H9a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+                        </svg>
+                        Chat on WhatsApp
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- What Happens Section (kept below feedback) -->
-    <section class="py-5 Happens_sticky" style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
+    <!-- What Happens Section -->
+    <section class="py-5 Happens_sticky"
+        style="background: linear-gradient(135deg, var(--pink-100), var(--purple-100));">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold mb-3">What Happens When You Join?</h2>
@@ -744,6 +1171,7 @@
             </div>
 
             <div class="text-center mt-5">
+                <!-- Existing open button (kept) -->
                 <button id="openFormBtn" class="btn rounded-0 btn-gradient btn-lg px-5 py-3 open-any">
                     <i data-lucide="message-circle" class="lucide-sm me-2"></i>
                     Message on WhatsApp: +91 6202798735
@@ -752,7 +1180,7 @@
         </div>
     </section>
 
-    <!-- Stats Section (unchanged) -->
+    <!-- Stats Section -->
     <section class="py-5 px-3">
         <div class="container">
             <div class="text-center mb-5">
@@ -760,6 +1188,7 @@
             </div>
 
             <div class="row align-items-center g-5">
+                <!-- Left side -->
                 <div class="col-md-6">
                     <div class="d-flex rounded-0 align-items-center gap-4 p-4 gradient-box-1 mb-4 shadow-sm">
                         <div class="gradient-pink-purple text-white d-flex align-items-center justify-content-center rounded-circle"
@@ -798,6 +1227,7 @@
                     </div>
                 </div>
 
+                <!-- Right side -->
                 <div class="col-md-6 text-center">
                     <div class="p-5 rounded-4 shadow-lg gradient-pink-purple text-white">
                         <h3 class="fw-bold fs-4 mb-3">🔥 Now it's YOUR time</h3>
@@ -824,7 +1254,8 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-5" style="background: linear-gradient(135deg, var(--pink-50), var(--purple-50));">
+    <section id="faq" class="py-5"
+        style="background: linear-gradient(135deg, var(--pink-50), var(--purple-50));">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold mb-3">Frequently Asked Questions</h2>
@@ -834,7 +1265,6 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="accordion" id="faqAccordion">
-                        <!-- (FAQ items unchanged) -->
                         <div class="accordion-item mb-3 border-0 shadow-sm rounded">
                             <h2 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -851,7 +1281,6 @@
                             </div>
                         </div>
 
-                        <!-- other FAQs (kept same) -->
                         <div class="accordion-item mb-3 border-0 shadow-sm rounded">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -867,14 +1296,105 @@
                             </div>
                         </div>
 
-                        <!-- ... rest unchanged -->
+                        <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq3">
+                                    How much time do I need to invest daily?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    You can start with just 2-3 hours daily. The program is designed to be flexible
+                                    around your schedule, whether you're a housewife, student, or working professional.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq4">
+                                    When can I expect to start earning?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Most of my students start seeing income within the first month of consistent effort.
+                                    However, sustainable income typically builds up over 2-3 months as you develop your
+                                    skills.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq5">
+                                    Do I need any prior experience or technical knowledge?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    No prior experience needed! I'll guide you step-by-step from basics to advanced. All
+                                    you need is a smartphone, internet connection, and willingness to learn.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq6">
+                                    What support will I get after joining?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    You'll get daily mentorship, 24/7 WhatsApp support, weekly group calls, and access
+                                    to our community of successful students. I personally guide each student.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq7">
+                                    Is there any investment required?
+                                </button>
+                            </h2>
+                            <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    The training program has a nominal fee which covers all materials, personal
+                                    mentorship, and ongoing support. No hidden costs or additional investments required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item mb-3 border-0 shadow-sm rounded">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq8">
+                                    Can I do this alongside my current job/studies?
+                                </button>
+                            </h2>
+                            <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Yes! The program is designed for busy people. You can learn and implement in your
+                                    free time. Many of my students are working professionals and students who do this
+                                    part-time.
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA Section with additional WhatsApp button before footer -->
+    <!-- Final CTA Section -->
     <section class="cta-section py-5">
         <div class="container max-w-900">
             <div class="text-center">
@@ -907,9 +1427,15 @@
 
                 <div class="mb-4">
                     <p class="fs-6 fw-semibold mb-3">📌 Save My Number First: +91 6202798735</p>
-                    <button class="btn-wa" id="openWaBottom">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M20.52 3.48A11.87 11.87 0 0 0 12 0C5.37 0 .07 5.3.07 11.92c0 2.1.54 4.13 1.56 5.92L0 24l6.35-1.69A11.84 11.84 0 0 0 12 23.84c6.63 0 11.93-5.3 11.93-11.92 0-3.19-1.25-6.18-3.41-8.44zM12 21.6c-1.04 0-2.06-.16-3-.46l-.21-.07-3.77 1.02 1.01-3.62-.06-.21A9.96 9.96 0 0 1 2.07 11.92C2.07 7.06 6.14 3 10.99 3 15.85 3 19.92 7.06 19.92 11.92 19.92 16.78 15.85 20.84 10.99 20.84z"></path></svg>
-                        <span>Message on WhatsApp</span>
+
+                    <!-- WhatsApp CTA button (opens form) -->
+                    <button id="chatBtnCTA" class="wa-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="color: white;">
+                            <path d="M21 15a2 2 0 0 1-2 2h-1l-3 3v-3H9a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+                        </svg>
+                        Click to Message on WhatsApp
                     </button>
                 </div>
 
@@ -1048,14 +1574,114 @@
             counters.forEach(counter => observer.observe(counter));
         });
 
-        // ------- Feedback track tweak: set track width dynamically to support smooth loop -------
-        (function setupFeedbackTrack() {
+        // ------- Video thumbnails -------
+        const videos = [
+            {
+                src: "https://www.w3schools.com/html/mov_bbb.mp4",
+                poster: "https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Success+Stories",
+                title: "Success Stories - Student Testimonials",
+                desc: "Watch how our students transformed their lives"
+            },
+            {
+                src: "https://www.w3schools.com/html/movie.mp4",
+                poster: "https://via.placeholder.com/600x400/ec4899/ffffff?text=Bushra's+Journey",
+                title: "Behind the Scenes - Bushra's Journey",
+                desc: "Learn about my journey from homemaker to coach"
+            }
+        ];
+
+        // main desktop video
+        const videoEl = document.getElementById("mainVideo");
+        const videoTitle = document.getElementById("videoTitle");
+        const videoDesc = document.getElementById("videoDescription");
+        const thumbs = document.querySelectorAll(".video-thumbnail-card");
+        thumbs.forEach((thumb) => {
+            thumb.addEventListener("click", () => {
+                thumbs.forEach((t) => t.classList.remove("active"));
+                thumb.classList.add("active");
+
+                const index = thumb.dataset.videoIndex || 0;
+                const data = videos[index];
+
+                if (videoEl) {
+                    videoEl.src = data.src;
+                    videoEl.poster = data.poster;
+                    videoTitle.textContent = data.title;
+                    videoDesc.textContent = data.desc;
+                    videoEl.play().catch(()=>{ /* autoplay prevented */ });
+                }
+            });
+
+            thumb.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    thumb.click();
+                }
+            });
+        });
+
+        // mute toggle desktop
+        const muteBtn = document.getElementById("muteBtn");
+        if (muteBtn && videoEl) {
+            muteBtn.addEventListener("click", () => {
+                videoEl.muted = !videoEl.muted;
+                muteBtn.innerHTML = videoEl.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
+                lucide.createIcons();
+            });
+        }
+
+        // Mobile video handlers
+        const videoElMobile = document.getElementById("mainVideoMobile");
+        const muteBtnMobile = document.getElementById("muteBtnMobile");
+        if (muteBtnMobile && videoElMobile) {
+            muteBtnMobile.addEventListener("click", () => {
+                videoElMobile.muted = !videoElMobile.muted;
+                muteBtnMobile.innerHTML = videoElMobile.muted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
+                lucide.createIcons();
+            });
+        }
+
+        // ------- Feedback carousel logic -------
+        (function () {
             const track = document.getElementById('feedbackTrack');
             if (!track) return;
 
-            // if the track's children total width < container, duplicate them already done in HTML.
-            // If you'd like more smoothness, add duplicates here dynamically.
-            // Nothing else needed.
+            // Duplicate children to make an infinite seamless loop
+            const children = Array.from(track.children);
+            children.forEach((child) => {
+                const clone = child.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            // Add animation class once DOM is ready
+            // (animation translates -50% to show half of the track since we duplicated)
+            setTimeout(() => {
+                track.classList.add('loop-animate');
+            }, 60);
+
+            // Pause on hover for better viewing
+            track.addEventListener('mouseenter', () => {
+                track.classList.add('pause');
+            });
+            track.addEventListener('mouseleave', () => {
+                track.classList.remove('pause');
+            });
+
+            // Also pause on touchstart for mobile
+            track.addEventListener('touchstart', () => {
+                track.classList.add('pause');
+            });
+            track.addEventListener('touchend', () => {
+                track.classList.remove('pause');
+            });
+
+            // Ensure images are loaded (optional safety)
+            const imgs = track.querySelectorAll('img');
+            imgs.forEach(img => {
+                img.addEventListener('error', () => {
+                    // if any image fails to load, set object as visible placeholder
+                    img.style.background = '#f3f3f3';
+                });
+            });
         })();
 
         // ------- FORM open/close logic & global interception for ANY button/anchor -------
@@ -1066,9 +1692,10 @@
             const mainForm = document.getElementById("mainForm");
             const sourceInfo = document.getElementById("sourceInfo");
 
-            // WhatsApp number (international format)
+            // target WhatsApp number (international format with country code 91)
             const WA_NUMBER_INT = "916202798735"; // +91 6202798735
 
+            // last click source stored to include in message if needed
             let lastClickSource = "site";
 
             function openForm(sourceLabel) {
@@ -1106,16 +1733,27 @@
                 });
             }
 
-            // Open form from additional WA buttons
-            const openWaFromFeedback = document.getElementById('openWaFromFeedback');
-            const openWaBottom = document.getElementById('openWaBottom');
-            if (openWaFromFeedback) openWaFromFeedback.addEventListener('click', (e) => { e.preventDefault(); openForm('FeedbackWA'); });
-            if (openWaBottom) openWaBottom.addEventListener('click', (e) => { e.preventDefault(); openForm('BottomWA'); });
+            // Provide explicit handlers for the two new chat buttons
+            const chatBtnFeedback = document.getElementById("chatBtnFeedback");
+            const chatBtnCTA = document.getElementById("chatBtnCTA");
+            if (chatBtnFeedback) {
+                chatBtnFeedback.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    openForm("ChatFeedback");
+                });
+            }
+            if (chatBtnCTA) {
+                chatBtnCTA.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    openForm("ChatCTA");
+                });
+            }
 
-            // Global click handler (opens form on any anchor/button) except inside form
+            // Global click handler: ANY button or anchor (a) click opens form — except clicks inside the form
             document.addEventListener("click", function (ev) {
                 const target = ev.target;
                 if (!target) return;
+
                 if (target.closest && target.closest("#formContainer")) {
                     return;
                 }
@@ -1125,32 +1763,36 @@
 
                 const anchorEl = target.closest ? target.closest("a") : null;
                 if (anchorEl && anchorEl.href) {
-                    // If anchor intentionally points to an external site (img in feedback) we DON'T open form
-                    // Allow normal navigation for links with target="_blank" or external hosts
-                    if (anchorEl.target === "_blank" || anchorEl.href.startsWith('http')) {
-                        // let it open (especially feedback images that open in new tab)
+                    // If it's a real external link (to open image or external site) allow default,
+                    // but previously your code prevented default and opened form. We preserve that behaviour
+                    // only when anchor has no data-no-open attribute.
+                    const hasNoOpen = anchorEl.hasAttribute('data-no-open') || anchorEl.getAttribute('target') === '_blank';
+                    if (!hasNoOpen) {
+                        ev.preventDefault();
+                        const label = anchorEl.getAttribute("data-source") || anchorEl.textContent.trim() || anchorEl.getAttribute("href");
+                        openForm(label);
+                        return;
+                    } else {
+                        // allow normal behavior (e.g., image links with target _blank) — do nothing
                         return;
                     }
-                    ev.preventDefault();
-                    const label = anchorEl.getAttribute("data-source") || anchorEl.textContent.trim() || anchorEl.getAttribute("href");
-                    openForm(label);
-                    return;
                 }
 
                 if (isButton || isAnchor) {
-                    // don't intercept the specific WA buttons that already open form
                     const clickable = target.closest && target.closest("[data-no-open='true']");
                     if (clickable) return;
 
-                    // If it's a standard navigation link we let it be
+                    // avoid double-opening if one of our explicit buttons already handled it
                     const label = target.getAttribute("data-source") || target.getAttribute("aria-label") || (target.textContent && target.textContent.trim()) || "button";
-                    // intercept only if link/button is not opening new tab
+                    // if it's one of our buttons we already wired, skip
+                    if (target.id === 'chatBtnFeedback' || target.id === 'chatBtnCTA' || target.id === 'openFormBtn') return;
+
                     ev.preventDefault();
                     openForm(label);
                 }
             }, true);
 
-            // Form submit: create WhatsApp message (NO Source line included)
+            // Form submit
             if (mainForm) {
                 mainForm.addEventListener("submit", function (e) {
                     e.preventDefault();
@@ -1159,6 +1801,7 @@
                     const age = (document.getElementById("inp_age").value || "").trim();
                     const gender = (document.getElementById("inp_gender").value || "").trim();
                     const profession = (document.getElementById("inp_profession").value || "").trim();
+                    // const src = (sourceInfo && sourceInfo.value) ? sourceInfo.value : lastClickSource;
 
                     const phone = phoneRaw.replace(/\D/g, "");
                     if (!name || !phone || phone.length < 6 || !age || !gender || !profession) {
@@ -1176,6 +1819,7 @@
                     lines.push(`Profession: ${profession}`);
                     lines.push(`Please share the next steps. Thanks!`);
 
+                    // NOTE: As requested, we DO NOT include "Source:" text in the WhatsApp message.
                     const message = encodeURIComponent(lines.join("\n"));
                     const waUrl = `https://wa.me/${WA_NUMBER_INT}?text=${message}`;
                     window.open(waUrl, "_blank");
