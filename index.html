@@ -13,12 +13,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /*
-          NOTE: only change made to hide the unwanted "last part" (floating widget)
-          — added a small set of CSS rules below to ensure common floating/chat widgets
-          or any fixed bottom-right small element are hidden/kept out of view.
-        */
-
         /* ---------- Hide potential floating widget / last part (user requested) ---------- */
         .crisp-client,
         #crisp-chatbox,
@@ -52,7 +46,6 @@
             pointer-events: none !important;
         }
 
-        /* ------------------------------------------------------------------------------- */
         body {
             scroll-behavior: smooth;
         }
@@ -117,7 +110,6 @@
             color: var(--gray-800);
         }
 
-        /* animations kept same as before */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -687,7 +679,7 @@
             }
         }
 
-        /* --------------------- New testimonial carousel styles --------------------- */
+        /* --------------------- Testimonial carousel styles --------------------- */
         .testimonials-wrapper {
             overflow: hidden;
             position: relative;
@@ -700,7 +692,6 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            /* will animate transform: translateX */
         }
 
         .testimonial-card {
@@ -721,11 +712,10 @@
             width: 100%;
             height: 240px;
             display: block;
-            object-fit: contain; /* show full photo, no cropping */
-            background: #fff; /* to avoid transparency causing blur */
+            object-fit: contain;
+            background: #fff;
         }
 
-        /* animation: continuous left scroll */
         @keyframes scroll-left {
             from {
                 transform: translateX(0);
@@ -736,16 +726,14 @@
         }
 
         .testimonials-auto {
-            /* duplicate images in track — translate -50% over duration to create seamless loop */
             animation: scroll-left linear infinite;
-            animation-duration: 30s; /* adjust speed: higher = slower */
+            animation-duration: 30s;
         }
 
         .testimonials-auto:hover {
             animation-play-state: paused;
         }
 
-        /* Responsive tweaks */
         @media (max-width: 992px) {
             .testimonial-card { min-width: 250px; max-width: 300px; }
             .testimonial-card img { height: 200px; }
@@ -755,7 +743,6 @@
             .testimonial-card img { height: 160px; }
         }
 
-        /* ensure no image blur by using image-rendering property for small images */
         .testimonial-card img {
             image-rendering: -webkit-optimize-contrast;
         }
@@ -772,10 +759,10 @@
             <div class="mb-5 animate-fade-in">
                 <div class="badge-custom animate-bounce">🚺 Girls Only!</div>
 
-                <!-- NEW: Couch image added right under the badge -->
+                <!-- COUCH IMAGE: direct i.ibb.co link -->
                 <div class="d-flex justify-content-center mb-3">
-                    <!-- using the supplied link; the JS will attempt to resolve to direct i.ibb.co format if possible -->
-                    <img id="heroCouchImage" src="https://ibb.co/Z1wzHtRT" alt="Couch Image" style="max-width:720px; width:100%; border-radius:12px; box-shadow:0 20px 40px rgba(0,0,0,0.12);" />
+                    <img id="heroCouchImage" src="https://i.ibb.co/Z1wzHtRT/Z1wzHtRT.jpg" alt="Couch Image"
+                        style="max-width:720px; width:100%; border-radius:12px; box-shadow:0 20px 40px rgba(0,0,0,0.12);" />
                 </div>
 
                 <h1 class="display-3 fw-bold gradient-text mb-4">
@@ -1066,17 +1053,17 @@
         </div>
     </section>
 
-    <!-- NEW: Feedback / Testimonials Section with auto-left slide -->
+    <!-- Feedback / Testimonials Section (auto left slide) -->
     <section id="feedback" class="py-5" style="background: linear-gradient(135deg, var(--pink-50), var(--purple-50));">
         <div class="container">
             <div class="text-center mb-4">
                 <h2 class="display-5 fw-bold mb-1">✨ Student Feedback</h2>
-                <p class="text-muted">Real feedback — real people. Swipe / Watch them slide.</p>
+                <p class="text-muted">Real feedback — real people. Hover to pause.</p>
             </div>
 
             <div class="testimonials-wrapper">
                 <div id="testimonialsTrack" class="testimonials-track testimonials-auto" aria-hidden="false">
-                    <!-- cards inserted by JS for flexibility -->
+                    <!-- We'll populate via JS -->
                 </div>
             </div>
 
@@ -1155,7 +1142,7 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Stats, FAQ, CTA, Footer (kept same as earlier) -->
     <section class="py-5 px-3">
         <div class="container">
             <div class="text-center mb-5">
@@ -1163,7 +1150,6 @@
             </div>
 
             <div class="row align-items-center g-5">
-                <!-- Left side -->
                 <div class="col-md-6">
                     <div class="d-flex rounded-0 align-items-center gap-4 p-4 gradient-box-1 mb-4 shadow-sm">
                         <div class="gradient-pink-purple text-white d-flex align-items-center justify-content-center rounded-circle"
@@ -1202,7 +1188,6 @@
                     </div>
                 </div>
 
-                <!-- Right side -->
                 <div class="col-md-6 text-center">
                     <div class="p-5 rounded-4 shadow-lg gradient-pink-purple text-white">
                         <h3 class="fw-bold fs-4 mb-3">🔥 Now it's YOUR time</h3>
@@ -1239,7 +1224,6 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="accordion" id="faqAccordion">
-                        <!-- ... (existing FAQ items unchanged) ... -->
                         <div class="accordion-item mb-3 border-0 shadow-sm rounded">
                             <h2 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -1255,7 +1239,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- keep other items as you had -->
+                        <!-- other FAQ items kept -->
                     </div>
                 </div>
             </div>
@@ -1361,10 +1345,6 @@
                         <li class="mb-2"><a href="#" class="text-muted open-any">Privacy Policy</a></li>
                         <li class="mb-2"><a href="#" class="text-muted open-any">Terms & Conditions</a></li>
                         <li class="mb-2"><a href="#" class="text-muted open-any">Unsubscribe</a></li>
-                        <li class="d-flex align-items-center gap-2 text-muted small mt-3">
-                            <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
-                            Your data is safe and secure with us
-                        </li>
                     </ul>
                 </div>
 
@@ -1407,7 +1387,7 @@
         // ------- Counters on intersection -------
         document.addEventListener("DOMContentLoaded", () => {
             const counters = document.querySelectorAll(".counter");
-            const speed = 100; // adjust speed (lower = faster)
+            const speed = 100;
 
             const startCounting = (counter) => {
                 const target = +counter.getAttribute("data-target");
@@ -1437,7 +1417,7 @@
             counters.forEach(counter => observer.observe(counter));
         });
 
-        // ------- Video thumbnails -------
+        // ------- Video thumbnails (kept) -------
         const videos = [
             {
                 src: "https://www.w3schools.com/html/mov_bbb.mp4",
@@ -1453,7 +1433,7 @@
             }
         ];
 
-        // main desktop video (if exists on page)
+        // main desktop video (if exists)
         const videoEl = document.getElementById("mainVideo");
         const videoTitle = document.getElementById("videoTitle");
         const videoDesc = document.getElementById("videoDescription");
@@ -1482,7 +1462,7 @@
             });
         });
 
-        // mute toggle desktop
+        // mute toggles
         const muteBtn = document.getElementById("muteBtn");
         if (muteBtn && videoEl) {
             muteBtn.addEventListener("click", () => {
@@ -1491,8 +1471,6 @@
                 lucide.createIcons();
             });
         }
-
-        // Mobile video handlers
         const videoElMobile = document.getElementById("mainVideoMobile");
         const muteBtnMobile = document.getElementById("muteBtnMobile");
         if (muteBtnMobile && videoElMobile) {
@@ -1511,10 +1489,7 @@
             const mainForm = document.getElementById("mainForm");
             const sourceInfo = document.getElementById("sourceInfo");
 
-            // target WhatsApp number (international format with country code 91)
             const WA_NUMBER_INT = "916202798735"; // +91 6202798735
-
-            // last click source stored to include in message
             let lastClickSource = "site";
 
             function openForm(sourceLabel) {
@@ -1552,11 +1527,9 @@
                 });
             }
 
-            // Global click handler: ANY button or anchor (a) click opens form — except clicks inside the form
             document.addEventListener("click", function (ev) {
                 const target = ev.target;
                 if (!target) return;
-
                 if (target.closest && target.closest("#formContainer")) {
                     return;
                 }
@@ -1582,7 +1555,6 @@
                 }
             }, true);
 
-            // Form submit
             if (mainForm) {
                 mainForm.addEventListener("submit", function (e) {
                     e.preventDefault();
@@ -1626,104 +1598,57 @@
         document.getElementById("currentYear").textContent = new Date().getFullYear();
 
 
-        /* ----------------- Testimonials images & auto-left sliding logic ----------------- */
+        /* ----------------- Testimonials images & auto-left sliding logic (direct i.ibb.co links) ----------------- */
         (function () {
-            // user-provided list of feedback URLs (as given)
-            const rawUrls = [
-                "https://ibb.co/8nfzjxF7",
-                "https://ibb.co/5X8s2nFG",
-                "https://ibb.co/9HtMg85b",
-                "https://ibb.co/gLGpY8wZ",
-                "https://ibb.co/N6dGqGcn",
-                "https://ibb.co/XZS8Jqm4",
-                "https://ibb.co/9HtMg85b",
-                "https://ibb.co/XZS8Jqm4",
-                "https://ibb.co/gM5hYwVs",
-                "https://ibb.co/8ghTj2zj"
+            // direct i.ibb.co image links (converted from your provided ibb.co ids)
+            const imageUrls = [
+                "https://i.ibb.co/8nfzjxF7/8nfzjxF7.jpg",
+                "https://i.ibb.co/5X8s2nFG/5X8s2nFG.jpg",
+                "https://i.ibb.co/9HtMg85b/9HtMg85b.jpg",
+                "https://i.ibb.co/gLGpY8wZ/gLGpY8wZ.jpg",
+                "https://i.ibb.co/N6dGqGcn/N6dGqGcn.jpg",
+                "https://i.ibb.co/XZS8Jqm4/XZS8Jqm4.jpg",
+                "https://i.ibb.co/9HtMg85b/9HtMg85b.jpg",
+                "https://i.ibb.co/XZS8Jqm4/XZS8Jqm4.jpg",
+                "https://i.ibb.co/gM5hYwVs/gM5hYwVs.jpg",
+                "https://i.ibb.co/8ghTj2zj/8ghTj2zj.jpg"
             ];
 
-            // Helper: try to convert ibb.co short url to direct i.ibb.co image url (common pattern)
-            // If conversion fails to load, we'll fallback to original URL (still may show if it's direct)
-            function deriveDirectIbbUrl(shortUrl) {
-                try {
-                    // shortUrl like https://ibb.co/abcd123
-                    const parts = shortUrl.split("/");
-                    const last = parts[parts.length - 1];
-                    if (!last) return shortUrl;
-                    // try common patterns (jpg/png) - we'll attempt JPG first
-                    return "https://i.ibb.co/" + last + ".jpg";
-                } catch (e) {
-                    return shortUrl;
-                }
-            }
-
             const track = document.getElementById("testimonialsTrack");
-
-            // create elements for each url
             const cards = [];
-            rawUrls.forEach((u, idx) => {
+
+            imageUrls.forEach((url, idx) => {
                 const card = document.createElement("div");
                 card.className = "testimonial-card";
 
                 const img = document.createElement("img");
                 img.alt = `Feedback ${idx+1}`;
                 img.loading = "lazy";
-
-                // try derived direct url first, but set data-original for fallback
-                img.dataset.original = u;
-                img.src = deriveDirectIbbUrl(u);
-
-                // if direct fails to load, fallback to original after a short timeout
-                img.addEventListener("error", function () {
-                    if (img.src === img.dataset.original) return;
-                    img.src = img.dataset.original;
-                });
+                img.src = url;
 
                 card.appendChild(img);
                 cards.push(card);
             });
 
-            // To create a seamless infinite left-scroll, duplicate the set
-            const fullSet = cards.concat(cards.map(c => c.cloneNode(true)));
-
-            // append to track
-            fullSet.forEach(c => track.appendChild(c));
+            // duplicate for seamless loop
+            const full = cards.concat(cards.map(c => c.cloneNode(true)));
+            full.forEach(c => track.appendChild(c));
 
             // adjust animation duration based on total width (approx)
             setTimeout(() => {
-                // compute approximate width
                 try {
                     const totalWidth = Array.from(track.children).reduce((sum, ch) => sum + ch.getBoundingClientRect().width + 12, 0);
-                    // duration ratio: more content = longer duration for same perceived speed
-                    // base speed: 300px per 6s => duration = totalWidth / (300/6) = totalWidth * 0.02
                     const duration = Math.max(18, Math.round(totalWidth * 0.02));
                     track.style.animationDuration = duration + "s";
                 } catch (e) { /* ignore */ }
             }, 300);
 
-            // Accessibility: pause animation for reduced-motion preference
+            // respect reduced-motion
             const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
             if (mq && mq.matches) {
                 track.style.animationPlayState = "paused";
             }
 
-        })();
-
-        /* ----------------- Try to resolve and set hero couch image to direct i.ibb.co if possible ----------------- */
-        (function() {
-            const heroImg = document.getElementById("heroCouchImage");
-            if (!heroImg) return;
-            const orig = heroImg.src; // likely https://ibb.co/Z1wzHtRT
-            const parts = orig.split("/");
-            const last = parts[parts.length-1] || "";
-            if (last) {
-                const candidate = "https://i.ibb.co/" + last + ".jpg";
-                // try loading candidate then fallback if error
-                heroImg.src = candidate;
-                heroImg.addEventListener("error", function () {
-                    heroImg.src = orig; // fallback to given link
-                });
-            }
         })();
 
     </script>
